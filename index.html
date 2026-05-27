@@ -1,0 +1,2052 @@
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persiapan ASSGP Kelas 7</title>
+<link rel="icon" href="maxresdefault.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3c2a;
+    --moss: #2d6a4f;
+    --leaf: #40916c;
+    --mint: #74c69d;
+    --fog: #d8f3dc;
+    --sky: #1e6091;
+    --ocean: #0077b6;
+    --sand: #f8f1e4;
+    --earth: #5c4033;
+    --amber: #e9b84a;
+    --white: #ffffff;
+    --ink: #111c14;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--forest);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ——— SCREEN SYSTEM ——— */
+  .screen { display: none; }
+  .screen.active { display: flex; flex-direction: column; }
+  #screen-home.active { min-height: 100vh; }
+  #screen-slides.active { height: 100vh; overflow: hidden; }
+
+  /* ——— LANDING ——— */
+  #screen-home {
+    background: var(--forest);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-leaves {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(64,145,108,.18) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(45,106,79,.22) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(26,60,42,.4) 0%, transparent 70%);
+  }
+
+  /* floating leaf SVGs */
+  .leaf-deco {
+    position: absolute; opacity: .07; pointer-events: none;
+  }
+
+  .home-inner {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 48px;
+    padding: 60px 24px;
+    text-align: center;
+    max-width: 820px;
+  }
+
+  .home-badge {
+    background: rgba(116,198,157,.15);
+    border: 1px solid rgba(116,198,157,.3);
+    color: var(--mint);
+    font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    padding: 6px 18px; border-radius: 999px;
+  }
+
+  .home-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 96px);
+    font-weight: 900;
+    line-height: .95;
+    color: var(--fog);
+  }
+
+  .home-title span { color: var(--mint); font-style: italic; }
+
+  .home-sub {
+    font-size: 16px; color: rgba(216,243,220,.55); font-weight: 400; line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .home-cards {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; max-width: 920px;
+  }
+
+  .ppt-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(116,198,157,.2);
+    border-radius: 20px;
+    padding: 32px 24px;
+    cursor: pointer;
+    transition: all .35s cubic-bezier(.2,.8,.3,1);
+    display: flex; flex-direction: column; gap: 16px;
+    align-items: flex-start;
+    text-align: left;
+    position: relative; overflow: hidden;
+  }
+
+  .ppt-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 0% 0%, rgba(116,198,157,.12), transparent 60%);
+    opacity: 0; transition: opacity .35s;
+  }
+
+  .ppt-card:hover { border-color: var(--mint); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .ppt-card:hover::before { opacity: 1; }
+
+  .card-num {
+    font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900;
+    color: rgba(116,198,157,.25); line-height: 1;
+  }
+
+  .card-title { font-weight: 600; font-size: 17px; color: var(--fog); }
+  .card-desc { font-size: 13px; color: rgba(216,243,220,.45); line-height: 1.5; }
+
+  .card-topics { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .card-tag {
+    background: rgba(64,145,108,.2); color: var(--mint);
+    font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 999px;
+  }
+
+  .card-arrow {
+    margin-top: auto; align-self: flex-end;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(116,198,157,.1); border: 1px solid rgba(116,198,157,.25);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--mint); font-size: 16px;
+    transition: all .3s;
+  }
+  .ppt-card:hover .card-arrow { background: var(--mint); color: var(--forest); }
+
+  .home-footer {
+    font-size: 12px; color: rgba(216,243,220,.25); letter-spacing: .05em;
+  }
+
+  /* ——— SLIDE VIEWER ——— */
+  #screen-slides {
+    background: #0e1f16;
+    flex-direction: column;
+  }
+
+  /* header */
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+    background: rgba(0,0,0,.3);
+    border-bottom: 1px solid rgba(116,198,157,.1);
+    flex-shrink: 0;
+    gap: 12px;
+  }
+
+  .btn-back {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(116,198,157,.1); border: 1px solid rgba(116,198,157,.2);
+    color: var(--mint); padding: 8px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .2s; white-space: nowrap;
+  }
+  .btn-back:hover { background: rgba(116,198,157,.2); }
+
+  .slide-title-bar {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; color: var(--fog); font-weight: 700;
+  }
+
+  .slide-counter {
+    font-size: 13px; color: rgba(216,243,220,.4); font-weight: 500; white-space: nowrap;
+  }
+
+  /* progress */
+  .slide-progress {
+    height: 3px; background: rgba(116,198,157,.1); flex-shrink: 0;
+  }
+  .slide-progress-bar {
+    height: 100%; background: linear-gradient(90deg, var(--leaf), var(--mint));
+    transition: width .4s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* slide body */
+  .slide-body {
+    flex: 1; display: flex; overflow: hidden; position: relative;
+    min-height: 0;
+  }
+
+  /* slide itself */
+  .slide-canvas {
+    flex: 1; overflow-y: auto;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 32px 24px;
+    min-height: 0;
+  }
+
+  .slide-frame {
+    width: 100%; max-width: 860px;
+    background: var(--white);
+    border-radius: 16px;
+    min-height: 460px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.5);
+    overflow: hidden;
+    position: relative;
+    transition: opacity .25s, transform .25s;
+  }
+
+  .slide-frame.transitioning { opacity: 0; transform: translateY(12px); }
+
+  /* SLIDE TYPES */
+  .slide { display: none; min-height: 460px; }
+  .slide.visible { display: flex; }
+
+  /* Cover slide */
+  .s-cover {
+    background: linear-gradient(135deg, var(--forest) 0%, #0b3320 100%);
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 48px; position: relative; overflow: hidden;
+    gap: 16px;
+  }
+  .s-cover::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 60%, rgba(64,145,108,.2), transparent 60%);
+    pointer-events: none;
+  }
+  .s-cover .cover-eyebrow {
+    color: var(--mint); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; font-weight: 600;
+    background: rgba(116,198,157,.1); padding: 5px 14px; border-radius: 999px; border: 1px solid rgba(116,198,157,.2);
+    z-index: 1;
+  }
+  .s-cover h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(38px, 7vw, 64px);
+    color: var(--fog); line-height: 1.1; z-index: 1; font-style: italic;
+  }
+  .s-cover h1 span { color: var(--mint); }
+  .s-cover .cover-sub { color: rgba(216,243,220,.5); font-size: 15px; z-index: 1; }
+  .s-cover .cover-leaf {
+    position: absolute; opacity: .06; font-size: 200px; right: -40px; bottom: -30px; z-index: 0;
+  }
+
+  /* Section header slide */
+  .s-section {
+    background: var(--forest);
+    flex-direction: column; align-items: flex-start; justify-content: center;
+    padding: 48px; gap: 12px; position: relative; overflow: hidden;
+  }
+  .s-section::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--mint), var(--leaf));
+  }
+  .s-section .sec-label { color: var(--mint); font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 600; }
+  .s-section h2 { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--fog); font-weight: 900; line-height: 1.1; }
+  .s-section p { color: rgba(216,243,220,.6); font-size: 15px; max-width: 500px; line-height: 1.6; }
+  .s-section .sec-deco { position: absolute; right: 48px; top: 50%; transform: translateY(-50%); font-size: 120px; opacity: .07; }
+
+  /* Content slide */
+  .s-content {
+    flex-direction: column; padding: 40px 48px; gap: 20px;
+  }
+  .s-content h3 {
+    font-family: 'Playfair Display', serif; font-size: 26px; color: var(--forest); font-weight: 700;
+    border-bottom: 2px solid var(--fog); padding-bottom: 12px;
+  }
+  .s-content .content-body { font-size: 14.5px; color: #2c3e30; line-height: 1.75; }
+  .s-content .content-body p { margin-bottom: 10px; }
+  .s-content .content-body strong { color: var(--moss); font-weight: 600; }
+
+  /* Two-col */
+  .s-two-col {
+    flex-direction: row; min-height: 460px;
+  }
+  .col-left {
+    flex: 1; background: var(--forest); padding: 40px;
+    display: flex; flex-direction: column; justify-content: center; gap: 12px;
+  }
+  .col-left h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--fog); font-weight: 900; }
+  .col-left p, .col-left li { color: rgba(216,243,220,.75); font-size: 14px; line-height: 1.65; }
+  .col-left ul, .col-left ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .col-left .col-label { color: var(--mint); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+
+  .col-right {
+    flex: 1; background: var(--fog); padding: 40px;
+    display: flex; flex-direction: column; justify-content: center; gap: 12px;
+  }
+  .col-right h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--forest); font-weight: 700; }
+  .col-right p, .col-right li { color: #2c3e30; font-size: 14px; line-height: 1.65; }
+  .col-right ul, .col-right ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .col-right .col-label { color: var(--moss); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+
+  /* Cards grid */
+  .s-cards { flex-direction: column; padding: 36px 40px; gap: 20px; background: #f7f9f4; }
+  .s-cards h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--forest); font-weight: 700; }
+  .cards-grid { display: grid; gap: 14px; }
+  .cards-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .cards-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-item {
+    background: var(--white); border-radius: 12px; padding: 18px;
+    border-left: 4px solid var(--mint);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .card-item h4 { font-size: 14px; font-weight: 600; color: var(--forest); }
+  .card-item p { font-size: 12.5px; color: #4a5c4e; line-height: 1.55; }
+
+  /* Simbiosis cards with colored borders */
+  .card-item.mutualis { border-color: #40916c; }
+  .card-item.parasit { border-color: #e63946; }
+  .card-item.komens { border-color: #e9b84a; }
+  .card-item.antibio { border-color: #6d6875; }
+  .card-item.predasi { border-color: #e76f51; }
+  .card-item.kompet { border-color: #457b9d; }
+
+  /* Pyramid / energy flow */
+  .s-pyramid { flex-direction: column; align-items: center; justify-content: center; padding: 36px; gap: 0; background: #f0f7f2; }
+  .s-pyramid h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--forest); font-weight: 700; margin-bottom: 20px; }
+  .pyramid { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+  .pyramid-level {
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; color: white; font-weight: 600; font-size: 13px;
+    padding: 10px 16px; text-align: center; transition: all .3s;
+    cursor: default;
+  }
+  .pyramid-level:hover { filter: brightness(1.1); transform: scaleX(1.01); }
+
+  /* Tingkatan ekologi levels */
+  .s-levels { flex-direction: column; padding: 32px 40px; gap: 16px; background: #f7f9f4; }
+  .s-levels h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--forest); font-weight: 700; }
+  .levels-row { display: flex; flex-direction: row; gap: 10px; align-items: stretch; overflow-x: auto; padding-bottom: 4px; }
+  .level-item {
+    flex: 1; min-width: 110px;
+    background: var(--white); border-radius: 12px; padding: 16px 12px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
+    border-top: 4px solid var(--mint);
+    transition: transform .2s;
+  }
+  .level-item:hover { transform: translateY(-2px); }
+  .level-item .lv-icon { font-size: 28px; }
+  .level-item .lv-name { font-weight: 600; font-size: 13px; color: var(--forest); }
+  .level-item .lv-desc { font-size: 11.5px; color: #5c6b5e; line-height: 1.4; }
+  .level-arrow { color: var(--mint); font-size: 20px; display: flex; align-items: center; flex-shrink: 0; }
+
+  /* Definition slide */
+  .s-defs { flex-direction: column; padding: 32px 40px; gap: 16px; background: var(--sand); }
+  .s-defs h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--forest); font-weight: 700; }
+  .defs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .def-item {
+    background: var(--white); border-radius: 10px; padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .def-term { font-size: 13px; font-weight: 700; color: var(--moss); text-transform: uppercase; letter-spacing: .05em; }
+  .def-meaning { font-size: 13px; color: #3a4a3d; line-height: 1.5; }
+
+  /* Biome slide */
+  .s-biome { flex-direction: column; padding: 32px 40px; gap: 16px; background: #f4f8f5; }
+  .s-biome h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--forest); font-weight: 700; }
+  .biome-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .biome-item {
+    border-radius: 12px; padding: 16px; color: white;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .biome-item .bi-icon { font-size: 26px; }
+  .biome-item .bi-name { font-weight: 700; font-size: 13px; }
+  .biome-item .bi-fact { font-size: 11.5px; opacity: .85; line-height: 1.4; }
+
+  /* Closing slide */
+  .s-closing {
+    background: linear-gradient(135deg, var(--ocean), #023e8a);
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 48px; gap: 14px; position: relative; overflow: hidden;
+  }
+  .s-closing h2 { font-family: 'Playfair Display', serif; font-size: 52px; color: var(--white); font-style: italic; }
+  .s-closing p { color: rgba(255,255,255,.6); font-size: 15px; }
+  .s-closing .closing-deco { position: absolute; font-size: 180px; opacity: .05; }
+
+  /* ——— SIDEBAR / THUMBNAILS ——— */
+  .slide-sidebar {
+    width: 200px; background: rgba(0,0,0,.2); border-left: 1px solid rgba(116,198,157,.08);
+    overflow-y: auto; display: flex; flex-direction: column; gap: 2px; padding: 10px;
+    flex-shrink: 0;
+  }
+
+  .thumb-item {
+    border-radius: 8px; overflow: hidden; cursor: pointer;
+    border: 2px solid transparent; transition: all .2s;
+    display: flex; flex-direction: column;
+  }
+  .thumb-item:hover { border-color: rgba(116,198,157,.3); }
+  .thumb-item.active { border-color: var(--mint); }
+  .thumb-label {
+    font-size: 10px; color: rgba(216,243,220,.4); padding: 4px 6px;
+    background: rgba(0,0,0,.2);
+  }
+  .thumb-preview {
+    height: 70px; overflow: hidden; position: relative; background: #1a3c2a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: rgba(216,243,220,.4); text-align: center; padding: 4px;
+  }
+
+  /* ——— NAVIGATION ——— */
+  .slide-nav {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    padding: 16px 28px; border-top: 1px solid rgba(116,198,157,.1);
+    background: rgba(0,0,0,.3); flex-shrink: 0;
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(116,198,157,.1); border: 1px solid rgba(116,198,157,.25);
+    color: var(--mint); padding: 10px 24px; border-radius: 999px;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    transition: all .2s; font-family: 'DM Sans', sans-serif;
+  }
+  .nav-btn:hover:not(:disabled) { background: rgba(116,198,157,.2); transform: translateY(-1px); }
+  .nav-btn:disabled { opacity: .3; cursor: not-allowed; }
+  .nav-btn.primary {
+    background: var(--leaf); border-color: var(--leaf); color: var(--white);
+  }
+  .nav-btn.primary:hover:not(:disabled) { background: var(--moss); }
+
+
+  /* ——— FOLDER CARDS (HOME) ——— */
+  .home-cards.folders { grid-template-columns: 1fr 1fr 1fr; max-width: 1020px; }
+
+  .folder-card {
+    background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border: 1px solid rgba(116,198,157,.25);
+    border-radius: 22px;
+    padding: 36px 28px;
+    cursor: pointer;
+    transition: all .35s cubic-bezier(.2,.8,.3,1);
+    display: flex; flex-direction: column; gap: 18px;
+    align-items: flex-start;
+    text-align: left;
+    position: relative; overflow: hidden;
+    min-height: 240px;
+  }
+  .folder-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 100% 0%, rgba(116,198,157,.18), transparent 55%);
+    opacity: 0; transition: opacity .35s;
+  }
+  .folder-card:hover {
+    border-color: var(--mint);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 70px rgba(0,0,0,.45);
+  }
+  .folder-card:hover::before { opacity: 1; }
+
+  .folder-icon-wrap {
+    width: 72px; height: 56px; position: relative;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .folder-shape {
+    width: 100%; height: 46px;
+    background: linear-gradient(180deg, var(--mint), var(--leaf));
+    border-radius: 4px 10px 10px 10px;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(64,145,108,.35);
+  }
+  .folder-shape::before {
+    content: ''; position: absolute;
+    top: -10px; left: 0; width: 40%; height: 12px;
+    background: var(--leaf);
+    border-radius: 6px 6px 0 0;
+  }
+  .folder-shape.ips {
+    background: linear-gradient(180deg, #ffd166, var(--amber));
+    box-shadow: 0 6px 18px rgba(233,184,74,.4);
+  }
+  .folder-shape.ips::before { background: var(--amber); }
+
+  .folder-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 900; color: var(--fog);
+    line-height: 1.1;
+  }
+  .folder-count {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: rgba(216,243,220,.55); font-weight: 500;
+    background: rgba(116,198,157,.1);
+    padding: 4px 12px; border-radius: 999px;
+    border: 1px solid rgba(116,198,157,.15);
+  }
+  .folder-desc { font-size: 13px; color: rgba(216,243,220,.5); line-height: 1.55; }
+
+  /* ——— FOLDER DETAIL SCREEN ——— */
+  #screen-folder { background: var(--forest); align-items: center; padding: 40px 24px; }
+  #screen-folder.active { min-height: 100vh; }
+
+  .folder-inner {
+    width: 100%; max-width: 960px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+
+  .folder-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .folder-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(116,198,157,.1); border: 1px solid rgba(116,198,157,.25);
+    color: var(--mint); padding: 8px 18px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all .2s;
+  }
+  .folder-back:hover { background: rgba(116,198,157,.2); }
+
+  .folder-heading {
+    display: flex; flex-direction: column; gap: 6px; text-align: center;
+    margin-top: 12px;
+  }
+  .folder-heading .fh-label {
+    color: var(--mint); font-size: 11px; letter-spacing: .15em;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .folder-heading h2 {
+    font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 56px);
+    color: var(--fog); font-weight: 900; line-height: 1;
+  }
+  .folder-heading p { color: rgba(216,243,220,.5); font-size: 14px; max-width: 520px; margin: 0 auto; }
+
+  .folder-materials {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: 8px;
+  }
+
+
+  /* ——— FOCUS MODE ——— */
+  .focus-mode-btn {
+    margin-top: 8px;
+    z-index: 2;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid rgba(116,198,157,.35);
+    background: linear-gradient(135deg, rgba(116,198,157,.18), rgba(64,145,108,.12));
+    color: var(--fog);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(0,0,0,.22);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .focus-mode-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--mint);
+    background: linear-gradient(135deg, rgba(116,198,157,.28), rgba(64,145,108,.2));
+  }
+
+  .focus-exit-btn,
+  .focus-hint {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+  }
+  .focus-exit-btn {
+    top: 18px; right: 18px;
+    border: 1px solid rgba(216,243,220,.25);
+    background: rgba(14,31,22,.78);
+    color: var(--fog);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  .focus-exit-btn:hover { background: rgba(45,106,79,.86); border-color: var(--mint); }
+  .focus-hint {
+    left: 50%; bottom: 18px; transform: translateX(-50%);
+    color: rgba(216,243,220,.72);
+    background: rgba(14,31,22,.62);
+    border: 1px solid rgba(216,243,220,.12);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+  }
+
+  body.focus-mode { overflow: hidden; background: #06120d; }
+  body.focus-mode #screen-slides.active {
+    height: 100vh;
+    background: radial-gradient(circle at 50% 45%, rgba(45,106,79,.22), #06120d 70%);
+  }
+  body.focus-mode .slide-header,
+  body.focus-mode .slide-progress,
+  body.focus-mode .slide-sidebar,
+  body.focus-mode .slide-nav {
+    display: none !important;
+  }
+  body.focus-mode .slide-body { height: 100vh; flex: 1; }
+  body.focus-mode .slide-canvas {
+    padding: 0;
+    height: 100vh;
+    align-items: center;
+    background: transparent;
+    overflow: hidden;
+  }
+  body.focus-mode .slide-frame {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    min-height: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  body.focus-mode .slide {
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+  }
+  body.focus-mode .focus-exit-btn,
+  body.focus-mode .focus-hint { display: block; }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .home-cards { grid-template-columns: 1fr; }
+    .home-cards.folders { grid-template-columns: 1fr; }
+    .folder-materials { grid-template-columns: 1fr; }
+
+    .slide-sidebar { display: none; }
+    .s-two-col { flex-direction: column; }
+    .biome-grid { grid-template-columns: 1fr 1fr; }
+    .cards-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+    .slide-header { padding: 10px 16px; }
+    .s-content, .s-cards, .s-levels, .s-defs, .s-biome { padding: 24px 20px; }
+    .col-left, .col-right { padding: 24px; }
+  }
+  @media (max-width: 900px) and (min-width: 641px) {
+    .home-cards { grid-template-columns: 1fr 1fr; max-width: 620px; }
+    .home-cards.folders { grid-template-columns: 1fr 1fr; max-width: 720px; }
+  }
+  .sigma{
+width: 300px;
+  height: 200px;
+--forest: #1a3c2a;
+  padding: 20px;
+  margin: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 500px;
+  min-height: 150px;
+  border: 1px solid #90caf9;
+  padding: 5%;
+  text-align:center; 
+  }
+
+  /* ——— LOADING SCREEN ——— */
+  #loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--forest);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    z-index: 99999;
+    transition: opacity 0.5s ease;
+  }
+
+  #loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loading-text {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mint);
+  }
+
+  /* Square Loader (From Uiverse.io by ZacharyCrespin) */
+  @keyframes square-animation {
+    0%    { left: 0;    top: 0;    }
+    10.5% { left: 0;    top: 0;    }
+    12.5% { left: 32px; top: 0;    }
+    23%   { left: 32px; top: 0;    }
+    25%   { left: 64px; top: 0;    }
+    35.5% { left: 64px; top: 0;    }
+    37.5% { left: 64px; top: 32px; }
+    48%   { left: 64px; top: 32px; }
+    50%   { left: 32px; top: 32px; }
+    60.5% { left: 32px; top: 32px; }
+    62.5% { left: 32px; top: 64px; }
+    73%   { left: 32px; top: 64px; }
+    75%   { left: 0;    top: 64px; }
+    85.5% { left: 0;    top: 64px; }
+    87.5% { left: 0;    top: 32px; }
+    98%   { left: 0;    top: 32px; }
+    100%  { left: 0;    top: 0;    }
+  }
+
+  .loader {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    transform: rotate(45deg);
+  }
+
+  .loader-square {
+    position: absolute;
+    top: 0; left: 0;
+    width: 28px; height: 28px;
+    margin: 2px;
+    background: var(--mint);
+    animation: square-animation 10s ease-in-out infinite both;
+  }
+
+  .loader-square:nth-of-type(1) { animation-delay: 0s; }
+  .loader-square:nth-of-type(2) { animation-delay: -1.4285714286s; }
+  .loader-square:nth-of-type(3) { animation-delay: -2.8571428571s; }
+  .loader-square:nth-of-type(4) { animation-delay: -4.2857142857s; }
+  .loader-square:nth-of-type(5) { animation-delay: -5.7142857143s; }
+  .loader-square:nth-of-type(6) { animation-delay: -7.1428571429s; }
+  .loader-square:nth-of-type(7) { animation-delay: -8.5714285714s; }
+</style>
+<script defer="" data-domain="semuamapelassgp7.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+<body>
+
+<!-- ===================== LOADING SCREEN ===================== -->
+<div id="loading-screen">
+  <div class="loader">
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+  </div>
+  <p class="loading-text">Memuat Materi…</p>
+</div>
+
+<!-- ===================== HOME ===================== -->
+<div id="screen-home" class="screen active">
+  <div class="bg-leaves"></div>
+  <div class="home-inner">
+    <div class="home-badge">SMPK PENABUR Jakarta · Kelas 7</div>
+<h6 class="home-title">Hallo lagi<span> User!</span></h6>
+    <div>
+      <h1 class="home-title">ASSGP Materi<span> Kelas 7</span></h1>
+    </div>
+
+    <p class="home-sub">Pilih materi pelajaran di bawah ini untuk memulai belajar.</p>
+
+    <div class="home-cards folders">
+      <div class="folder-card" onclick="openFolder('biologi')">
+        <div class="folder-icon-wrap"><div class="folder-shape"></div></div>
+        <div class="folder-name">Biologi</div>
+        <span class="folder-count">📂 2 materi</span>
+        <div class="folder-desc">Ekosistem, komponen makhluk hidup, klasifikasi, dan kelestarian alam.</div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('fisika')">
+        <div class="folder-icon-wrap"><div class="folder-shape" style="background:linear-gradient(180deg,#7b9fd4,#1e6091);box-shadow:0 6px 18px rgba(30,96,145,.4)"></div></div>
+        <div class="folder-name">Fisika</div>
+        <span class="folder-count">📂 1 materi</span>
+        <div class="folder-desc">Tata Surya, planet, gerhana, pasang surut, komet, dan meteoroid.</div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('ips')">
+        <div class="folder-icon-wrap"><div class="folder-shape ips"></div></div>
+        <div class="folder-name">IPS</div>
+        <span class="folder-count">📂 2 materi</span>
+        <div class="folder-desc">Pemberdayaan masyarakat, uang, tabungan, investasi &amp; literasi keuangan.</div>
+      </div>
+
+      <div class="folder-card" onclick="openFolder('ppkn')">
+        <div class="folder-icon-wrap"><div class="folder-shape" style="background:linear-gradient(180deg,#e9b84a,#c8860a);box-shadow:0 6px 18px rgba(200,134,10,.4)"></div></div>
+        <div class="folder-name">PPKn</div>
+        <span class="folder-count">📂 1 materi</span>
+        <div class="folder-desc">Wilayah NKRI, makna negara, negara kesatuan, dan upaya menjaga keutuhan bangsa.</div>
+      </div>
+    </div>
+
+    <div class="home-footer   ablefocused" >Buatan: Arlando 7G/6</div>
+    <div class="home-footer   ablefocused" >Mau belajar MTK? Pencet gambar nya </div>
+    <div class="home-footer   ablefocused" >↓ </div>
+
+ <a href="kiki.html" class="image-link">
+  <img src="EXMP.png" alt="Contoh MTK">
+</a>
+  </div>
+</div>
+
+
+<!-- ===================== FOLDER DETAIL ===================== -->
+<div id="screen-folder" class="screen">
+  <div class="folder-inner">
+    <div class="folder-topbar">
+      <button class="folder-back" onclick="closeFolder()">← Kembali ke Folder</button>
+      <span class="folder-count" id="folder-count-top">📂 0 materi</span>
+    </div>
+
+    <div class="folder-heading">
+      <div class="fh-label" id="folder-label">FOLDER</div>
+      <h2 id="folder-title">Biologi</h2>
+      <p id="folder-subtitle">Pilih materi yang ingin kamu pelajari.</p>
+    </div>
+
+    <div class="folder-materials" id="folder-materials"><!-- material cards rendered here --></div>
+  </div>
+</div>
+
+<!-- ===================== SLIDES ===================== -->
+<div id="screen-slides" class="screen">
+  <button class="focus-exit-btn" onclick="exitFocusMode()">✕ Keluar Mode Fokus</button>
+  <div class="focus-hint">Mode Fokus aktif · pakai ← → untuk pindah slide · ESC / tombol kanan atas untuk keluar</div>
+  <div class="slide-header">
+    <button class="btn-back" onclick="goHome()">← Kembali</button>
+    <div class="slide-title-bar" id="pres-title">Ekosistem</div>
+    <div class="slide-counter" id="slide-counter">1 / 1</div>
+  </div>
+  <div class="slide-progress">
+    <div class="slide-progress-bar" id="progress-bar" style="width:0%"></div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-canvas">
+      <div class="slide-frame" id="slide-frame">
+        <!-- Slides rendered here by JS -->
+      </div>
+    </div>
+    <div class="slide-sidebar" id="sidebar"><!-- thumbnails --></div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="nav-btn" id="btn-prev" onclick="prevSlide()">← Sebelumnya</button>
+    <button class="nav-btn primary" id="btn-next" onclick="nextSlide()">Selanjutnya →</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const presentations = {
+  1: {
+    title: "Ekosistem — Bagian 1",
+    slides: [
+      // 0 - Cover
+      { type: 'cover', data: { title: 'Ekosistem', subtitle: '1', kelas: 'Kelas 7 · SMPK PENABUR Jakarta', icon: '' }},
+      // 1 - Capaian Pembelajaran
+      { type: 'section', data: { label: 'Capaian Pembelajaran', title: 'Tujuan Belajar', desc: 'Mengidentifikasi interaksi antar makhluk hidup dan lingkungannya, serta merancang upaya mencegah dan mengatasi pencemaran dan perubahan iklim.', icon: '' }},
+      // 2 - Materi Overview
+      { type: 'cards', data: { title: 'Materi: Ekosistem', cols: 2, items: [
+        { title: 'Komponen Penyusun', body: 'Komponen biotik dan abiotik yang membentuk suatu ekosistem.' },
+        { title: 'Tingkatan Ekologi', body: 'Dari individu → populasi → komunitas → ekosistem → bioma → biosfer.' },
+        { title: 'Arus Energi', body: 'Rantai makanan, jaring-jaring makanan, dan piramida energi.' },
+        { title: 'Interaksi Makhluk Hidup', body: 'Simbiosis, predasi, kompetisi, dan antibiosis.' },
+      ]}},
+      // 3 - Pertanyaan pemantik
+      { type: 'section', data: { label: 'Pertanyaan Pemantik', title: 'Apa itu Ekosistem?', desc: 'Apa bedanya Ekologi dan Ekosistem? Apa cirinya? Apa saja penyusunnya? Ada berapa macamnya?', icon: '' }},
+      // 4 - Ekologi
+      { type: 'twocol', data: {
+        left: { label: 'Etimologi', title: 'Ekologi', items: ['Oikos (Yunani) = rumah atau tempat tinggal', 'Logos (Yunani) = ilmu atau pengetahuan'], type: 'ul' },
+        right: { label: 'Definisi', title: 'Ilmu Ekologi', items: [
+          'Ilmu yang mempelajari organisme di tempat tinggalnya.',
+          'Mempelajari hubungan timbal balik antara organisme dengan lingkungannya.',
+          'Mempelajari struktur dan fungsi dari alam.'
+        ], type: 'ul' }
+      }},
+      // 5 - Ekosistem definisi
+      { type: 'twocol', data: {
+        left: { label: 'A.G. Tansley, 1935', title: 'Ekosistem', items: ['Sistem ekologi yang terbentuk dari hubungan timbal balik antara makhluk hidup (Biotik) dengan lingkungan sekitarnya (Abiotik).'], type: 'ul' },
+        right: { label: 'Komponen Utama', title: 'Terdiri dari:', items: [
+          ' Komponen Biotik — makhluk hidup (Produsen, Konsumen, Dekomposer)',
+          ' Komponen Abiotik — benda tak hidup (udara, air, tanah, cahaya, suhu)',
+        ], type: 'ul' }
+      }},
+      // 6 - Komponen Ekosistem overview
+      { type: 'cards', data: { title: 'Komponen Ekosistem', cols: 2, items: [
+        { title: ' BIOTIK', body: 'Seluruh makhluk hidup: Monera, Protista, Fungi, Plantae, Animalia.' },
+        { title: ' ABIOTIK', body: 'Benda tidak hidup: udara, air, tanah, cahaya, pH, suhu, kelembapan.' },
+        { title: ' Berdasarkan Sel', body: 'Uniseluler (satu sel) dan Multiseluler (banyak sel).' },
+        { title: ' Berdasarkan Ukuran', body: 'Makroskopis (terlihat mata) dan Mikroskopis (perlu alat bantu).' },
+      ]}},
+      // 7 - Abiotik vs Biotik
+      { type: 'twocol', data: {
+        left: { label: 'Komponen', title: 'Biotik', items: ['Monera', 'Protista', 'Fungi (Jamur)', 'Plantae (Tumbuhan)', 'Animalia (Hewan)'], type: 'ul' },
+        right: { label: 'Komponen', title: 'Abiotik', items: ['Udara', 'Air', 'Tanah dan mineral', 'Cahaya matahari', 'Derajat keasaman (pH)', 'Suhu', 'Kelembapan'], type: 'ul' }
+      }},
+      // 8 - Komponen Biotik - Produsen & Konsumen
+      { type: 'cards', data: { title: 'Komponen Biotik: Berdasarkan Peranan', cols: 2, items: [
+        { title: ' Produsen', body: 'Organisme yang mengubah zat anorganik → organik melalui fotosintesis (autotrof). Contoh: tumbuhan hijau.' },
+        { title: ' Konsumen', body: 'Organisme yang memakan organisme lain (heterotrof). Terdiri dari herbivora, karnivora, omnivora, detritivor.' },
+        { title: ' Dekomposer', body: 'Pengurai sampah organik (sisa tubuh hewan & tumbuhan) menjadi bahan anorganik. Contoh: bakteri dan jamur.' },
+        { title: ' Detritivor', body: 'Organisme pemakan sisa-sisa organisme mati. Contoh: rayap dan cacing.' },
+      ]}},
+      // 9 - Komponen Abiotik
+      { type: 'twocol', data: {
+        left: { label: 'Abiotik', title: 'Air & Tanah', items: [
+          '💧 Air — mengandung mineral vital, hampir 85% tubuh organisme adalah air; berfungsi sebagai pelarut, pengatur suhu, dan metabolisme.',
+          '🌍 Tanah — tempat tumbuh tumbuhan, mengandung mineral, tempat berpijak hewan.'
+        ], type: 'ul' },
+        right: { label: 'Abiotik', title: 'Udara & Cahaya', items: [
+          '💨 Udara — berkaitan dengan fungsi bernapas, kelembapan, dan suhu udara.',
+          '☀️ Cahaya Matahari — sumber energi utama di Bumi; mengatur perilaku organisme (diurnal & nokturnal).'
+        ], type: 'ul' }
+      }},
+      // 10 - Definisi Kunci
+      { type: 'defs', data: { title: 'Definisi Kata Kunci', items: [
+        { term: 'Ekologi', meaning: 'Ilmu mempelajari hubungan biotik dan abiotik dalam ekosistem.' },
+        { term: 'Ekosistem', meaning: 'Sistem hubungan timbal balik antara biotik dan abiotik.' },
+        { term: 'Abiotik', meaning: 'Benda mati (tanah, angin, cahaya, air, suhu).' },
+        { term: 'Biotik', meaning: 'Makhluk hidup.' },
+        { term: 'Simbiosis', meaning: 'Interaksi antara dua spesies yang berbeda.' },
+        { term: 'Tingkat Trofik', meaning: 'Urutan/lapisan organisme dalam rantai makanan.' },
+      ]}},
+      // 11 - Tingkatan Ekologi
+      { type: 'levels', data: { title: 'Tingkatan dalam Ekologi', items: [
+        { icon: '', name: 'Individu', desc: 'Satu makhluk hidup tunggal. Contoh: seekor rusa.' },
+        { icon: '', name: 'Populasi', desc: 'Kumpulan individu sejenis. Contoh: kumpulan rusa.' },
+        { icon: '', name: 'Komunitas', desc: 'Kumpulan populasi berbeda di satu tempat.' },
+        { icon: '', name: 'Ekosistem', desc: 'Interaksi biotik dan abiotik yang saling mempengaruhi.' },
+        { icon: '', name: 'Bioma', desc: 'Kumpulan ekosistem di daerah luas dengan iklim khas.' },
+        { icon: '', name: 'Biosfer', desc: 'Interaksi antarbioma yang membentuk lapisan bumi.' },
+      ]}},
+      // 12 - Bioma
+      { type: 'biome', data: { title: 'Macam-Macam Bioma', items: [
+        { icon: '', name: 'Gurun', fact: 'Curah hujan sangat rendah (~25 cm/tahun), suhu ekstrem.', color: '#c09a5b' },
+        { icon: '', name: 'Sabana/Stepa', fact: 'Padang rumput tropis hingga subtropis.', color: '#7a9e4b' },
+        { icon: '', name: 'Taiga/Konifer', fact: 'Hutan pohon jenis konifer di belahan bumi utara.', color: '#3a7d44' },
+        { icon: '', name: 'Hutan Hujan Tropis', fact: 'Curah hujan 200–225 cm/tahun, keanekaragaman hayati tertinggi.', color: '#1a6b3c' },
+        { icon: '', name: 'Hutan Gugur', fact: '4 musim, curah hujan merata 75–100 cm/tahun.', color: '#c0783a' },
+        { icon: '', name: 'Tundra', fact: 'Musim dingin panjang, vegetasi rendah, dekat kutub utara.', color: '#5b8ba8' },
+      ]}},
+      // 13 - Interaksi Antarorganisme
+      { type: 'section', data: { label: 'Interaksi', title: 'Pola Interaksi Antarorganisme', desc: 'Organisme dalam ekosistem saling berinteraksi membentuk pola-pola yang khas.', icon: '' }},
+      // 14 - Simbiosis
+      { type: 'cards', data: { title: 'Simbiosis', cols: 2, items: [
+        { title: ' Mutualisme (+|+)', body: 'Kedua pihak saling menguntungkan. Contoh: lebah ↔ bunga, bakteri E. coli ↔ manusia.', cls: 'mutualis' },
+        { title: ' Parasitisme (+|−)', body: 'Satu untung, satu rugi. Contoh: benalu ↔ pohon mangga, nyamuk ↔ manusia.', cls: 'parasit' },
+        { title: ' Komensalisme (+|0)', body: 'Satu untung, satu tidak untung/rugi. Contoh: ikan remora ↔ hiu.', cls: 'komens' },
+        { title: ' Antibiosis (0|−)', body: 'Satu organisme mengeluarkan zat yang membahayakan organisme lain. Contoh: fungi penghasil antibiotik.', cls: 'antibio' },
+      ]}},
+      // 15 - Predasi & Kompetisi
+      { type: 'cards', data: { title: 'Interaksi Lainnya', cols: 2, items: [
+        { title: ' Predasi', body: 'Interaksi antara pemangsa (predator) dengan mangsa melalui peristiwa makan-dimakan.', cls: 'predasi' },
+        { title: ' Kompetisi', body: 'Interaksi antarindividu sejenis atau berbeda yang bersaing untuk mendapatkan sarana/kebutuhan yang sama.', cls: 'kompet' },
+      ]}},
+      // 16 - Arus Energi
+      { type: 'section', data: { label: 'Arus Energi', title: 'Siklus Materi & Energi', desc: 'Komponen ekosistem saling bergantung membentuk sistem penyaluran energi melalui rantai dan jaring-jaring makanan.', icon: '' }},
+      // 17 - Rantai Makanan
+      { type: 'twocol', data: {
+        left: { label: 'Definisi', title: 'Rantai Makanan', items: [
+          'Proses perpindahan energi melalui peristiwa makan-dimakan membentuk satu rangkaian.',
+          'Produsen → Konsumen I → Konsumen II → Konsumen Puncak',
+        ], type: 'ul' },
+        right: { label: 'Contoh', title: 'Rantai Makanan', items: [
+          ' Daun Mangga',
+          ' Kumbang (dimakan katak)',
+          ' Katak (dimakan ular)',
+          ' Ular (dimakan burung hantu)',
+          ' Burung Hantu (konsumen puncak)',
+        ], type: 'ol' }
+      }},
+      // 18 - Jaring-jaring & Piramida
+      { type: 'pyramid', data: { title: 'Piramida Energi / Makanan', levels: [
+        { label: 'Konsumen Puncak (Trofik 4)', color: '#c0392b', width: '30%' },
+        { label: 'Konsumen II (Trofik 3)', color: '#e67e22', width: '50%' },
+        { label: 'Konsumen I (Trofik 2)', color: '#f1c40f', width: '70%', textColor: '#333' },
+        { label: 'Produsen (Trofik 1)', color: '#27ae60', width: '95%' },
+      ], note: 'Jumlah energi mengecil ke atas karena terbuang melalui respirasi, panas tubuh, dan ekskresi.' }},
+      // 19 - Closing
+      { type: 'closing', data: { title: 'Terima Kasih!', sub: 'Selamat Belajar ', icon: '' }},
+    ]
+  },
+
+  2: {
+    title: "Ekosistem — Bagian 2",
+    slides: [
+      // 0
+      { type: 'cover', data: { title: 'Ekosistem', subtitle: '2', kelas: 'Kelas 7 · SMPK PENABUR Jakarta', icon: '' }},
+      // 1
+      { type: 'cards', data: { title: 'Tujuan Pembelajaran', cols: 2, items: [
+        { title: ' Memahami Klasifikasi', body: 'Mampu memahami dan mengidentifikasi jenis-jenis ekosistem darat dan air.' },
+        { title: ' Kelestarian Ekosistem', body: 'Menjelaskan pentingnya keragaman makhluk hidup dan upaya pelestarian ekosistem.' },
+      ]}},
+      // 2
+      { type: 'section', data: { label: 'Materi D', title: 'Klasifikasi Ekosistem', desc: 'Mengenal berbagai jenis ekosistem berdasarkan cara pembentukan dan karakteristiknya.', icon: '' }},
+      // 3
+      { type: 'cards', data: { title: 'Jenis-Jenis Ekosistem', cols: 2, items: [
+        { title: ' Ekosistem Alami', body: 'Terbentuk secara alami tanpa campur tangan manusia. Contoh: hutan, danau, sungai.' },
+        { title: ' Ekosistem Buatan', body: 'Diciptakan atau dikelola oleh manusia. Contoh: kolam, waduk, kebun.' },
+        { title: ' Ekosistem Darat (Terestrial)', body: 'Lingkungan fisiknya berupa daratan. Dipengaruhi iklim, topografi, dan curah hujan.' },
+        { title: ' Ekosistem Air (Akuatik)', body: 'Lingkungan fisiknya berupa perairan. Terdiri dari air tawar, payau, dan laut.' },
+      ]}},
+      // 4
+      { type: 'section', data: { label: 'Ekosistem Darat', title: 'Bioma Darat', desc: 'Ekosistem yang lingkungan fisiknya berupa daratan, dibedakan berdasarkan iklim dan vegetasinya.', icon: '' }},
+      // 5 - Guru
+      { type: 'twocol', data: {
+        left: { label: 'Bioma 1', title: ' Gurun', items: [
+          'Amerika Utara, Afrika Utara, Australia, Asia Barat',
+          'Curah hujan sangat rendah (~25 cm/tahun)',
+          'Suhu siang 45°C, malam 0°C',
+          'Tanah tandus, kelembaban sangat rendah',
+        ], type: 'ul' },
+        right: { label: 'Kehidupan', title: 'Biotik di Gurun', items: [
+          ' Flora: Tumbuhan serofit — mampu hidup di kondisi kering.',
+          ' Fauna besar: Unta (menyimpan air), aktif di pagi/malam hari.',
+          ' Fauna kecil: Kadal, ular, tikus — nokturnal untuk menghindari panas.',
+        ], type: 'ul' }
+      }},
+      // 6 - Padang Rumput
+      { type: 'twocol', data: {
+        left: { label: 'Bioma 2', title: '🌾 Padang Rumput', items: [
+          'Hungaria, Rusia Selatan, Asia Tengah, Amerika Selatan, Australia',
+          'Curah hujan 25–50 cm/tahun (ada yang 100 cm)',
+          'Drainase dan porositas kurang baik',
+        ], type: 'ul' },
+        right: { label: 'Kehidupan', title: 'Biotik di Padang Rumput', items: [
+          ' Flora dominan: Rumput yang beradaptasi dengan drainase buruk.',
+          ' Fauna: Zebra, kanguru, bison — di berbagai benua.',
+        ], type: 'ul' }
+      }},
+      // 7 - Taiga
+      { type: 'twocol', data: {
+        left: { label: 'Bioma 3', title: '🌲 Taiga / Konifer', items: [
+          'Belahan bumi utara dan pegunungan tropis',
+          'Suhu musim dingin sangat rendah',
+          'Hutan tersusun atas satu spesies (konifer, pinus)',
+        ], type: 'ul' },
+        right: { label: 'Kehidupan', title: 'Biotik di Taiga', items: [
+          ' Flora: Konifer, pinus, semak sedikit, tumbuhan basah minim.',
+          ' Fauna: Moose, beruang hitam, ajag, burung yang bermigrasi ke selatan saat musim gugur.',
+        ], type: 'ul' }
+      }},
+      // 8 - Hutan Hujan Tropis
+      { type: 'twocol', data: {
+        left: { label: 'Bioma 4', title: '🌿 Hutan Hujan Tropis', items: [
+          'Amazon, Amerika Tengah, Asia Tenggara, Papua Nugini, Lembah Kongo',
+          'Curah hujan 200–225 cm/tahun, merata sepanjang tahun',
+          'Matahari bersinar sepanjang tahun',
+        ], type: 'ul' },
+        right: { label: 'Kehidupan', title: 'Biotik di Hutan Hujan', items: [
+          ' Flora: Pohon 20–40 m, kanopi lebat, liana (rotan), epifit (anggrek).',
+          'Fauna: Diurnal di atas kanopi; nokturnal di bawah (burung hantu, babi hutan, macan tutul).',
+        ], type: 'ul' }
+      }},
+      // 9 - Hutan Gugur & Tundra
+      { type: 'cards', data: { title: 'Bioma Lainnya', cols: 2, items: [
+        { title: ' Hutan Gugur', body: '30°–40° Lintang Utara & Selatan. 4 musim. Curah hujan 75–100 cm/tahun. Flora: mampu membuat getah untuk menahan beku.' },
+        { title: ' Tundra', body: 'Dekat kutub utara & puncak gunung tinggi. Musim dingin panjang & gelap. Flora: lumut, tumbuhan biji semusim, kayu pendek. Fauna: rusa kutub, beruang kutub.' },
+      ]}},
+      // 10 - Ekosistem Air
+      { type: 'section', data: { label: 'Ekosistem Air', title: 'Ekosistem Akuatik', desc: 'Variasi suhu tidak mencolok, dipengaruhi iklim dan cuaca. Organisme dikelompokkan berdasarkan cara hidupnya.', icon: '' }},
+      // 11 - Organisme Air
+      { type: 'cards', data: { title: 'Organisme Ekosistem Air', cols: 2, items: [
+        { title: ' Plankton', body: 'Melayang di air. Fitoplankton (dapat berfotosintesis) dan Zooplankton (seperti hewan mikro).' },
+        { title: ' Nekton', body: 'Organisme yang aktif berenang. Contoh: ikan, udang.' },
+        { title: ' Neuston', body: 'Mengapung atau berenang di permukaan air.' },
+        { title: ' Bentos & Perifton', body: 'Bentos hidup di dasar perairan. Perifton menempel pada benda lain. Contoh: siput.' },
+      ]}},
+      // 12 - Perairan Tawar & Payau
+      { type: 'twocol', data: {
+        left: { label: 'Ekosistem Air', title: ' Perairan Tawar', items: [
+          'Terletak di tengah daratan (sungai & danau).',
+          'Dihuni ikan, amfibi, reptil air.',
+          'Vegetasi: alga, tumbuhan berongga, teratai.',
+          'Lentik = air tenang; Lotik = air mengalir.',
+        ], type: 'ul' },
+        right: { label: 'Ekosistem Air', title: ' Air Payau / Muara', items: [
+          'Batas antara sungai (tawar) dan laut (asin).',
+          'Ciri khas: pohon Mangrove/Bakau.',
+          'Fauna: berbagai burung, ikan kecil, dan udang.',
+        ], type: 'ul' }
+      }},
+      // 13 - Laut & Terumbu Karang
+      { type: 'twocol', data: {
+        left: { label: 'Ekosistem Air', title: ' Ekosistem Laut', items: [
+          'Airnye sangat asin, paling luas di bumi.',
+          'Terbentang dari bibir pantai hingga palung terdalam.',
+          'Perbedaan suhu dan cahaya seiring kedalaman mempengaruhi keanekaragaman biotik.',
+        ], type: 'ul' },
+        right: { label: 'Ekosistem Air', title: ' Terumbu Karang', items: [
+          'Ditemukan di perairan jernih, dangkal, arus kecil.',
+          'Terbentuk dari kegiatan kerang, siput, cacing, Coelenterata, dan alga kapur.',
+          'Salah satu ekosistem dengan keanekaragaman hayati tertinggi.',
+        ], type: 'ul' }
+      }},
+      // 14 - Dinamika Ekosistem
+      { type: 'section', data: { label: 'Dinamika', title: 'Dinamika Ekosistem', desc: 'Perubahan ekosistem yang disebabkan oleh aliran energi, perubahan populasi, dan perubahan lingkungan fisik.', icon: '' }},
+      // 15 - Suksesi
+      { type: 'twocol', data: {
+        left: { label: 'Suksesi Primer', title: ' Suksesi Primer', items: [
+          'Komunitas awal hilang secara total dan membentuk habitat baru.',
+          'Contoh: lahan baru setelah gunung meletus (Krakatau).',
+        ], type: 'ul' },
+        right: { label: 'Suksesi Sekunder', title: ' Suksesi Sekunder', items: [
+          'Gangguan terhadap komunitas yang masih ada sisa kehidupan dari habitat awal.',
+          'Contoh: pemulihan hutan setelah kebakaran.',
+        ], type: 'ul' }
+      }},
+      // 16 - Keanekaragaman
+      { type: 'section', data: { label: 'Materi E', title: 'Keanekaragaman Hayati', desc: 'Mengapa ada kepunahan makhluk hidup? Mengapa keragaman dalam ekosistem sangat penting?', icon: '' }},
+      // 17 - Biodiversity
+      { type: 'cards', data: { title: 'Bentuk-Bentuk Keanekaragaman Hayati (Biodiversity)', cols: 3, items: [
+        { title: ' Genetik', body: 'Variasi gen di antara individu dalam satu spesies.' },
+        { title: ' Spesies', body: 'Variasi jenis makhluk hidup yang berbeda di suatu daerah.' },
+        { title: ' Habitat/Ekosistem', body: 'Variasi tipe ekosistem yang ada di bumi.' },
+      ]}},
+      // 18 - Penyebab & Pentingnya
+      { type: 'twocol', data: {
+        left: { label: 'Penyebab', title: 'Keanekaragaman Alami vs Buatan', items: [
+          'Alami: akibat adaptasi setiap individu dengan lingkungan.',
+          'Faktor lingkungan mempengaruhi fenotip; faktor genetik (genotip) menentukan sifat bawaan.',
+          'Buatan: melalui hibridisasi/perkawinan silang.',
+        ], type: 'ul' },
+        right: { label: 'Pentingnya', title: 'Mengapa Penting?', items: [
+          'Jika keragaman rendah, gangguan pada satu spesies akan mengancam kelestarian ekosistem keseluruhan.',
+          'Keragaman tinggi → ekosistem lebih tahan terhadap gangguan.',
+          'Mendukung keseimbangan ekologis jangka panjang.',
+        ], type: 'ul' }
+      }},
+      // 19 - Kawasan Konservasi
+      { type: 'cards', data: { title: 'Kawasan Pelestarian Alam', cols: 2, items: [
+        { title: ' Hutan Suaka Alam', body: 'Kawasan pengawetan keanekaragaman tumbuhan, satwa, dan ekosistem sebagai penyangga kehidupan.' },
+        { title: ' Taman Nasional', body: 'Dikelola dengan sistem inti-penyangga-pemanfaatan untuk ilmu pengetahuan dan pariwisata. Contoh: TN Gede-Pangrango.' },
+        { title: ' Taman Hutan Raya', body: 'Koleksi tumbuhan/hewan alami untuk ilmu pengetahuan dan rekreasi. Contoh: TAHURA Juanda, Bandung.' },
+        { title: ' Kebun Raya', body: 'Lahan koleksi tumbuhan untuk penelitian dan konservasi ex-situ. Contoh: Kebun Raya Bogor.' },
+      ]}},
+      // 20 - Manfaat Konservasi
+      { type: 'cards', data: { title: 'Manfaat Konservasi', cols: 2, items: [
+        { title: ' Keseimbangan Ekosistem', body: 'Menjaga keseimbangan ekosistem agar kehidupan di muka bumi terus berjalan.' },
+        { title: ' Ilmu Pengetahuan', body: 'Melestarikan keanekaragaman hayati yang dimanfaatkan bagi ilmu pengetahuan dan masyarakat.' },
+        { title: ' Kualitas Lingkungan', body: 'Menciptakan lingkungan nyaman dan mengurangi pencemaran udara.' },
+        { title: ' Perlindungan Flora & Fauna', body: 'Melindungi flora dan fauna dari ancaman kepunahan.' },
+      ]}},
+      // 21 - Closing
+      { type: 'closing', data: { title: 'Terima Kasih!', sub: 'Selamat Belajar 🌊', icon: '🌊' }},
+    ]
+  },
+
+  3: {
+    title: "Pemberdayaan Masyarakat — IPS",
+    slides: [
+      // 0 - Cover
+      { type: 'cover', data: { title: 'Pemberdayaan', subtitle: 'Masyarakat', kelas: 'Kelas 7 · IPS · SMPK PENABUR Jakarta', icon: '💰' }},
+      // 1 - Intro
+      { type: 'section', data: { label: 'BAB C', title: 'Pemberdayaan Masyarakat', desc: 'Proses pembangunan yang bertujuan agar masyarakat dapat berinisiatif dalam memulai kegiatan sosial untuk memperbaiki kondisi kehidupan, termasuk melalui pengelolaan keuangan yang baik.', icon: '🏘️' }},
+      // 2 - Overview Materi
+      { type: 'cards', data: { title: 'Materi: Pemberdayaan Masyarakat', cols: 3, items: [
+        { title: '1. Uang', body: 'Sejarah, fungsi, jenis, syarat, dan nilai uang sebagai alat tukar.' },
+        { title: '2. Pendapatan', body: 'Pengertian pendapatan dan hubungannya dengan konsumsi dan tabungan.' },
+        { title: '3. Tabungan', body: 'Definisi tabungan dan motif menabung.' },
+        { title: '4. Investasi', body: 'Jenis-jenis investasi, manfaat, dan tips berinvestasi.' },
+        { title: '5. Literasi Keuangan', body: 'Tingkatan literasi keuangan menurut OJK.' },
+        { title: '6. Pengelolaan Keuangan', body: 'Model dan langkah-langkah mengelola keuangan keluarga.' },
+      ]}},
+      // 3 - Sejarah Uang
+      { type: 'section', data: { label: 'Bagian 1', title: 'Uang', desc: 'Uang adalah alat tukar dalam transaksi ekonomi untuk menggantikan barang yang diperlukan. Peran uang sangat penting dalam kegiatan ekonomi.', icon: '💵' }},
+      // 4 - Sejarah Uang
+      { type: 'levels', data: { title: 'Sejarah Uang', items: [
+        { icon: '🏕️', name: 'Nomaden / Ladang Berpindah', desc: 'Manusia memenuhi kebutuhan sendiri' },
+        { icon: '🔄', name: 'Barter', desc: 'Tukar barang langsung' },
+        { icon: '🌾', name: 'Uang Barang (Commodity Money)', desc: 'Barang bernilai sebagai alat tukar' },
+        { icon: '🪙', name: 'Uang Logam (Metalic Money)', desc: 'Full bodied money' },
+        { icon: '💴', name: 'Uang Kertas & Logam Modern', desc: 'Representative full bodied money' },
+      ]}},
+      // 5 - Barter
+      { type: 'twocol', data: {
+        left: { label: 'Sistem Barter', title: '🔄 Kendala Barter', items: [
+          'Sulit menemukan orang yang mau menukarkan barangnya sesuai dengan kebutuhan',
+          'Sulit menentukan nilai barang yang akan dipertukarkan',
+          'Sulit menemukan orang yang mau menukarkan barangnya dengan jasa yang dimiliki',
+          'Sulit menemukan kebutuhan yang mau dipertukarkan sesuai keinginan dengan cepat',
+        ], type: 'ul' },
+        right: { label: 'Kelemahan Barter', title: '⚠️ Kelemahan Perdagangan Barter', items: [
+          'Memerlukan "kehendak ganda yang saling selaras" (double coincidence of wants)',
+          'Penentuan harga sukar dilakukan',
+          'Membatasi pilihan pembeli',
+          'Menyulitkan pembayaran tertunda',
+          'Sukar menyimpan kekayaan',
+        ], type: 'ul' }
+      }},
+      // 6 - Syarat Uang
+      { type: 'cards', data: { title: 'Syarat-Syarat Uang', cols: 3, items: [
+        { title: '① Acceptability', body: 'Dapat diterima oleh umum sebagai alat tukar.' },
+        { title: '② Durability', body: 'Tahan lama dan tidak mudah rusak.' },
+        { title: '③ Stability', body: 'Mudah disimpan dan nilainya tetap (stabil).' },
+        { title: '④ Portability', body: 'Mudah dipindah dan dibawa ke mana-mana.' },
+        { title: '⑤ Divisibility', body: 'Mudah dibagi tanpa mengurangi nilai.' },
+        { title: '⑥ Terbatas & Tidak Dipalsukan', body: 'Jumlahnya terbatas sehingga tetap berharga dan tidak mudah dipalsukan.' },
+      ]}},
+      // 7 - Fungsi Uang
+      { type: 'twocol', data: {
+        left: { label: 'Fungsi Asli', title: '📌 Fungsi Asli Uang', items: [
+          'Sebagai alat tukar — mengatasi kesulitan barter dalam pertukaran.',
+          'Sebagai satuan hitung — menentukan nilai dari suatu barang/jasa serta besarnya harga.',
+        ], type: 'ul' },
+        right: { label: 'Fungsi Turunan', title: '📎 Fungsi Turunan Uang', items: [
+          'Alat pembayaran yang sah — membayar pajak, iuran, hadiah, dll.',
+          'Alat pembayaran utang — standar pembayaran kewajiban/utang.',
+          'Penimbun/penyimpan kekayaan — disimpan di bank atau tempat aman.',
+          'Alat pemindah kekayaan — menukar aset (misal: uang → mobil).',
+          'Alat pengumpul kekayaan — mengakumulasi aset bernilai.',
+        ], type: 'ul' }
+      }},
+      // 8 - Jenis Uang
+      { type: 'cards', data: { title: 'Jenis-Jenis Uang', cols: 2, items: [
+        { title: '🪙 Uang Logam (Berdasarkan Bahan)', body: 'Terbuat dari logam. Nilai nominal tertera pada koin. Nilai intrinsik = nilai bahan logam pembuatnya.' },
+        { title: '📄 Uang Kertas (Berdasarkan Bahan)', body: 'Terbuat dari kertas khusus. Nilai nominal jauh lebih besar dari nilai intrinsiknya (bahan kertas).' },
+        { title: '💳 Uang Kartal (Berdasarkan Lembaga)', body: 'Diterbitkan oleh Bank Sentral (Bank Indonesia). Digunakan seluruh masyarakat: uang kertas & logam sehari-hari.' },
+        { title: '🏦 Uang Giral (Berdasarkan Lembaga)', body: 'Dikeluarkan oleh bank umum. Simpanan/rekening giro yang dapat diambil sewaktu-waktu via cek, bilyet giro, atau transfer.' },
+      ]}},
+      // 9 - Nilai Uang
+      { type: 'cards', data: { title: 'Nilai Uang', cols: 2, items: [
+        { title: 'Nilai Nominal', body: 'Nilai yang tertulis/tertera pada mata uang itu sendiri. Contoh: angka Rp100.000 pada pecahan uang.' },
+        { title: 'Nilai Intrinsik', body: 'Nilai bahan yang digunakan untuk membuat mata uang tersebut. Contoh: nilai kertas/logam pembuatnya.' },
+        { title: 'Nilai Internal', body: 'Nilai yang diukur dari jumlah barang yang dapat ditukar oleh suatu mata uang (daya beli dalam negeri).' },
+        { title: 'Nilai Eksternal', body: 'Nilai suatu mata uang yang diukur dengan mata uang negara lain (kurs/nilai tukar).' },
+      ]}},
+      // 10 - Full Bodied Money
+      { type: 'twocol', data: {
+        left: { label: 'Jenis Nilai Uang', title: '🏅 Full Bodied Money', items: [
+          'Uang yang memiliki nilai nominal dan nilai intrinsik yang SAMA.',
+          'Contoh: koin emas zaman dahulu di mana nilai emasnya = nilai yang tertera.',
+        ], type: 'ul' },
+        right: { label: 'Jenis Nilai Uang', title: '📜 Representative Full Bodied', items: [
+          'Uang yang nilai intrinsiknya lebih KECIL dari nilai nominalnya.',
+          'Contoh: uang kertas Rp100.000 — bahan kertasnya jauh lebih murah dari Rp100.000.',
+        ], type: 'ul' }
+      }},
+      // 11 - Pendapatan
+      { type: 'section', data: { label: 'Bagian 2', title: 'Pendapatan', desc: 'Sejumlah uang atau penerimaan yang diterima perusahaan atau individu dari penjualan produk, jasa atau aset dalam jangka waktu tertentu.', icon: '💼' }},
+      // 12 - Pendapatan Detail
+      { type: 'twocol', data: {
+        left: { label: 'Sumber Pendapatan', title: 'Faktor Produksi', items: [
+          'Gaji atau Upah — imbalan atas tenaga kerja',
+          'Sewa — imbalan atas penggunaan lahan/aset',
+          'Bunga — imbalan atas modal',
+          'Laba — imbalan atas keahlian wirausaha',
+        ], type: 'ul' },
+        right: { label: 'Rumus', title: 'Y = C + S', items: [
+          'Y = Pertambahan Pendapatan',
+          'C = Pertambahan Konsumsi',
+          'S = Pertambahan Tabungan',
+          'Pendapatan memiliki hubungan erat dengan perilaku konsumsi dan tabungan.',
+        ], type: 'ul' }
+      }},
+      // 13 - Tabungan
+      { type: 'section', data: { label: 'Bagian 3', title: 'Tabungan', desc: 'Simpanan yang diperoleh dari dana yang sengaja disisihkan dari pendapatan seseorang yang belum dipakai atau belum dikonsumsi dalam jangka waktu tertentu.', icon: '🏦' }},
+      // 14 - Motif Menabung
+      { type: 'cards', data: { title: 'Motif / Tujuan Menabung', cols: 3, items: [
+        { title: '🛡️ Motif Berjaga-jaga', body: 'Untuk mengantisipasi pengeluaran yang tidak terduga di masa mendatang.' },
+        { title: '🛒 Motif Transaksi', body: 'Untuk menanggulangi pembiayaan yang nilainya cukup besar atau kebutuhan sehari-hari.' },
+        { title: '📈 Motif Spekulasi', body: 'Motif untuk mendapatkan keuntungan dari peluang yang ada.' },
+      ]}},
+      // 15 - Investasi
+      { type: 'section', data: { label: 'Bagian 4', title: 'Investasi', desc: 'Aktivitas ekonomi yang bertujuan untuk mendapatkan keuntungan di masa mendatang dengan memanfaatkan modal atau aset di masa sekarang.', icon: '📊' }},
+      // 16 - Jenis Investasi
+      { type: 'twocol', data: {
+        left: { label: 'Investasi Langsung', title: '🏭 Investasi Langsung', items: [
+          'Investasi jangka panjang pada suatu usaha/bisnis baru.',
+          'Contoh aset nyata: mesin, pabrik, bangunan, tanah, dan emas.',
+          'Lebih stabil, return jangka panjang.',
+        ], type: 'ul' },
+        right: { label: 'Investasi Tidak Langsung', title: '📱 Investasi Tidak Langsung', items: [
+          'Jangka pendek dan lebih spekulatif.',
+          'Contoh aset keuangan: saham, deposito, obligasi, reksa dana.',
+          'Lebih likuid, risiko lebih bervariasi.',
+        ], type: 'ul' }
+      }},
+      // 17 - Jenis-jenis Investasi
+      { type: 'cards', data: { title: 'Jenis-Jenis Investasi', cols: 3, items: [
+        { title: '📈 Saham', body: 'Kepemilikan sebagian perusahaan. Potensi return tinggi, risiko juga tinggi.' },
+        { title: '📜 Obligasi', body: 'Surat utang yang diterbitkan pemerintah/perusahaan. Return tetap berupa kupon bunga.' },
+        { title: '💼 Reksa Dana', body: 'Kumpulan dana investor yang dikelola manajer investasi. Cocok untuk pemula.' },
+        { title: '🏠 Properti', body: 'Investasi pada tanah/bangunan. Nilainya cenderung naik jangka panjang.' },
+        { title: '🥇 Emas', body: 'Investasi logam mulia. Stabil, mudah dicairkan, lindung nilai inflasi.' },
+      ]}},
+      // 18 - Manfaat & Tips Investasi
+      { type: 'twocol', data: {
+        left: { label: 'Manfaat Investasi', title: '✅ Manfaat Berinvestasi', items: [
+          'Mengurangi risiko keuangan jangka panjang',
+          'Meningkatkan nilai uang (melawan inflasi)',
+          'Membuat rencana masa depan lebih terstruktur',
+          'Mencapai financial freedom',
+          'Lebih siap untuk pensiun',
+          'Memiliki dana darurat',
+        ], type: 'ul' },
+        right: { label: 'Tips Investasi', title: '🎯 Tips Investasi yang Baik', items: [
+          'Mulailah sedini mungkin',
+          'Tentukan tujuan investasi',
+          'Tentukan jangka waktu',
+          'Tentukan profil risiko',
+          'Diversifikasi investasi',
+          'Pantau dan evaluasi secara berkala',
+        ], type: 'ul' }
+      }},
+      // 19 - Literasi Keuangan
+      { type: 'section', data: { label: 'Bagian 5', title: 'Literasi Keuangan', desc: 'Menurut OJK: pengetahuan, keterampilan, dan keyakinan yang memengaruhi sikap dan perilaku untuk meningkatkan kualitas pengambilan keputusan dan pengelolaan keuangan.', icon: '📚' }},
+      // 20 - Tingkatan Literasi
+      { type: 'cards', data: { title: 'Tingkatan Literasi Keuangan (OJK)', cols: 2, items: [
+        { title: '⭐⭐⭐⭐ Well Literate', body: 'Memiliki pengetahuan, keyakinan, dan keterampilan dalam menggunakan lembaga jasa keuangan dan produknya.' },
+        { title: '⭐⭐⭐ Sufficient Literate', body: 'Memiliki pengetahuan dan keyakinan tentang lembaga jasa keuangan serta produk dan jasa keuangan.' },
+        { title: '⭐⭐ Less Literate', body: 'Hanya memiliki pengetahuan tentang lembaga jasa keuangan, produk dan jasa keuangan, tanpa keterampilan.' },
+        { title: '⭐ Not Literate', body: 'Tidak memiliki pengetahuan, keyakinan, dan keterampilan dalam menggunakan produk dan jasa keuangan.' },
+      ]}},
+      // 21 - Pengelolaan Keuangan Keluarga
+      { type: 'section', data: { label: 'Bagian 6', title: 'Pengelolaan Keuangan Keluarga', desc: 'Upaya pengelolaan keuangan keluarga secara terstruktur yang mencakup perencanaan, penyusunan anggaran, serta analisis sumber penghasilan dan pengeluaran (cash flow).', icon: '👨‍👩‍👧‍👦' }},
+      // 22 - Model Pengelolaan
+      { type: 'twocol', data: {
+        left: { label: 'Model Pengelolaan', title: '✉️ Sistem Amplop', items: [
+          'Membagi uang ke dalam amplop-amplop sesuai pos pengeluaran.',
+          'Mudah dan visual — langsung terlihat berapa sisa untuk tiap kebutuhan.',
+          'Cocok untuk pengeluaran tunai.',
+        ], type: 'ul' },
+        right: { label: 'Model Pengelolaan', title: '📒 Sistem Buku Kas', items: [
+          'Mencatat semua pemasukan dan pengeluaran dalam buku kas.',
+          'Sistem Kas Harian: dicatat setiap hari.',
+          'Sistem Kas Keluarga: merangkum seluruh keuangan keluarga secara berkala.',
+        ], type: 'ul' }
+      }},
+      // 23 - Langkah Mengelola
+      { type: 'cards', data: { title: 'Langkah-Langkah Mengelola Keuangan Keluarga', cols: 2, items: [
+        { title: '① Susun Tujuan Keuangan', body: 'Spesifik, dapat diukur, memiliki target waktu, dan tertulis.' },
+        { title: '② Susun Rencana Pendapatan', body: 'Identifikasi semua sumber pemasukan keluarga secara rinci.' },
+        { title: '③ Susun Rencana Pengeluaran', body: 'Bedakan kebutuhan vs keinginan, pilih prioritas, hemat, dan tabung secara periodik.' },
+        { title: '④ Lakukan Reviu', body: 'Evaluasi dan perbarui rencana keuangan secara berkala agar tetap relevan.' },
+      ]}},
+      // 24 - PKBN2K / Refleksi
+      { type: 'twocol', data: {
+        left: { label: 'Refleksi — PKBN2K', title: '🧘 Penguasaan Diri', items: [
+          'Buatlah daftar pengeluaran pribadimu dalam waktu seminggu beserta besarnya biaya yang dikeluarkan.',
+          'Buatlah quote tentang penggunaan uang secara bijak.',
+        ], type: 'ul' },
+        right: { label: 'Skala Prioritas', title: '📋 Langkah Menyusun Prioritas', items: [
+          'Identifikasi tujuan & evaluasi urgensi',
+          'Evaluasi pentingnya & penilaian waktu',
+          'Peringkat & hitung total prioritas',
+          'Pertimbangkan kapasitas dan keterbatasan',
+          'Pilih prioritas utama & buat rencana aksi',
+          'Perbarui secara berkala, hindari prokrastinasi',
+        ], type: 'ul' }
+      }},
+      // 25 - Closing
+      { type: 'closing', data: { title: 'Terima Kasih!', sub: 'Kelola keuanganmu dengan bijak 💰', icon: '💰' }},
+    ]
+  },
+
+  4: {
+    title: "Peranan Komunitas — IPS Tema 4D",
+    slides: [
+      // 0 - Cover
+      { type: 'cover', data: { title: 'Peranan Komunitas', subtitle: 'dalam Kehidupan Masyarakat', kelas: 'Kelas 7 · IPS · Tema 4 Bagian D', icon: '🏘️' }},
+      // 1 - Pengertian Komunitas
+      { type: 'twocol', data: {
+        left: { label: 'Definisi KBBI', title: '📖 Komunitas (KBBI)', items: [
+          'Kelompok organisme yang hidup dan saling berinteraksi di dalam daerah tertentu.',
+        ], type: 'ul' },
+        right: { label: 'Definisi Sosiologi', title: '🔬 Komunitas (Sosiologi)', items: [
+          'Kelompok yang saling berinteraksi di lokasi tertentu.',
+          'Menekankan pada hubungan sosial antaranggota dalam satu wilayah.',
+        ], type: 'ul' }
+      }},
+      // 2 - Konsep Dasar Komunitas
+      { type: 'cards', data: { title: 'Konsep Dasar Komunitas', cols: 3, items: [
+        { title: '📏 Skala', body: 'Komunitas berskala terbatas sehingga informasi mudah diakses oleh seluruh anggotanya.' },
+        { title: '🪪 Identitas & Kepemilikan', body: 'Komunitas memberikan rasa identitas dan rasa memiliki kepada setiap anggotanya.' },
+        { title: '📜 Kewajiban (Gemeinschaft)', body: 'Seluruh kelompok membutuhkan pemeliharaan agar berlanjut; tanggung jawab ada pada setiap anggota.' },
+      ]}},
+      // 3 - Peran Utama Komunitas
+      { type: 'cards', data: { title: 'Peran Komunitas dalam Masyarakat', cols: 2, items: [
+        { title: '🤝 Solidaritas Sosial', body: 'Menciptakan ikatan sosial dan rasa persatuan di antara masyarakat.' },
+        { title: '💬 Interaksi Sosial & Dukungan Emosional', body: 'Menyediakan lingkungan tempat anggota dapat berinteraksi, berbagi pengalaman, dan memberikan dukungan emosional.' },
+        { title: '🎓 Pendidikan & Sosialisasi', body: 'Menjadi tempat berlangsungnya proses pendidikan dan sosialisasi nilai-nilai sosial.' },
+        { title: '🎭 Keberlanjutan Budaya', body: 'Berperan penting dalam mempertahankan dan meneruskan warisan budaya serta tradisi.' },
+      ]}},
+      // 4 - Pemberdayaan Komunitas
+      { type: 'twocol', data: {
+        left: { label: 'Pemberdayaan Ekonomi', title: '💼 Ekonomi Komunitas', items: [
+          'Tujuan: meningkatkan taraf ekonomi komunitas.',
+          'Contoh: badan modal usaha, pengembangan usaha mikro, kecil, dan menengah (UMKM).',
+        ], type: 'ul' },
+        right: { label: 'Pemberdayaan Sosial', title: '🌱 Sosial Komunitas', items: [
+          'Tujuan: meningkatkan kualitas hidup komunitas melalui peningkatan kualitas sosial.',
+          'Contoh: peningkatan akses pendidikan, kesehatan, dan layanan sosial.',
+        ], type: 'ul' }
+      }},
+      // 5 - Contoh Peran Penting
+      { type: 'cards', data: { title: 'Contoh Peran Penting Komunitas', cols: 3, items: [
+        { title: '🌐 Jaringan Sosial', body: 'Membangun dan memperluas jaringan sosial antaranggota masyarakat.' },
+        { title: '📚 Dukungan Pendidikan', body: 'Mendukung akses dan mutu pendidikan bagi anggota komunitas.' },
+        { title: '🏗️ Pemberdayaan Masyarakat', body: 'Menggerakkan potensi masyarakat untuk kemajuan bersama.' },
+        { title: '🧠 Mengubah Persepsi', body: 'Mendorong perubahan cara pandang masyarakat ke arah yang lebih positif.' },
+        { title: '♻️ Pembangunan Berkelanjutan', body: 'Mendukung pembangunan yang memperhatikan kebutuhan generasi masa kini dan mendatang.' },
+      ]}},
+      // 6 - Tantangan dan Kendala
+      { type: 'cards', data: { title: 'Tantangan & Kendala Komunitas', cols: 2, items: [
+        { title: '⚖️ Kesenjangan Sosial Ekonomi', body: 'Perbedaan tingkat ekonomi antaranggota menghambat partisipasi merata.' },
+        { title: '🔒 Terbatasnya Akses Sumber Daya', body: 'Ketimpangan akses terhadap sumber daya alam maupun finansial.' },
+        { title: '🌍 Dampak Lingkungan', body: 'Kerusakan lingkungan menjadi hambatan pemberdayaan komunitas.' },
+        { title: '📉 Keterbatasan Pendidikan & Pelatihan', body: 'Rendahnya pendidikan menghambat pengembangan kapasitas anggota.' },
+        { title: '⚡ Konflik Politik & Sosial', body: 'Perpecahan di dalam komunitas melemahkan solidaritas dan kerja sama.' },
+        { title: '🌐 Dampak Globalisasi', body: 'Arus globalisasi dapat mengikis nilai-nilai lokal dan identitas komunitas.' },
+      ]}},
+      // 7 - Solusi Memperkuat Komunitas
+      { type: 'cards', data: { title: 'Solusi & Cara Memperkuat Komunitas', cols: 2, items: [
+        { title: '👋 Mengenali Masyarakat Sekitar', body: 'Mulai dari memahami kebutuhan dan potensi masyarakat di lingkungan terdekat.' },
+        { title: '🤲 Bergabung dengan Komunitas', body: 'Aktif berpartisipasi dalam komunitas yang ada di sekitar kita.' },
+        { title: '👥 Libatkan Orang Lain', body: 'Ajak orang lain untuk turut berkontribusi demi kemajuan bersama.' },
+        { title: '💪 Tunjukkan Komitmen', body: 'Konsisten dan terus bekerja demi kebaikan komunitas.' },
+        { title: '🎁 Bagikan Keterampilan & Waktu', body: 'Sumbangkan keahlian dan waktu kita untuk membantu sesama anggota.' },
+      ]}},
+      // 8 - Upaya Pemberdayaan
+      { type: 'cards', data: { title: 'Upaya Pemberdayaan Masyarakat', cols: 3, items: [
+        { title: '🛠️ Pelatihan Ketrampilan', body: 'Meningkatkan kemampuan anggota melalui pelatihan vokasional dan kewirausahaan.' },
+        { title: '💰 Peningkatan Pendapatan', body: 'Mendorong peningkatan pendapatan keluarga melalui program ekonomi produktif.' },
+        { title: '♀️ Peningkatan Perempuan', body: 'Memberdayakan perempuan agar aktif berkontribusi dalam ekonomi dan sosial.' },
+        { title: '🌾 Peningkatan Hasil Panen', body: 'Mengoptimalkan produktivitas pertanian untuk ketahanan pangan komunitas.' },
+        { title: '🌿 Pelestarian Lingkungan', body: 'Menjaga kelestarian alam sebagai modal dasar kehidupan komunitas yang berkelanjutan.' },
+      ]}},
+      // 9 - Closing
+      { type: 'closing', data: { title: 'Terima Kasih!', sub: 'Komunitas yang kuat = masyarakat yang sejahtera 🏘️', icon: '🏘️' }},
+    ]
+  },
+
+  5: {
+    title: "Tata Surya — Fisika Kelas 7 Sem 2",
+    slides: [
+      // 0 - Cover
+      { type: 'cover', data: { title: 'Tata Surya', subtitle: 'Fisika Kelas 7 Sem 2', kelas: 'Kelas 7 · Fisika · SMPK PENABUR Jakarta', icon: '🪐' }},
+      // 1 - KD
+      { type: 'section', data: { label: 'Kompetensi Dasar 4.1', title: 'Tujuan Pembelajaran', desc: 'Mendeskripsikan karakteristik benda-benda langit dalam tata surya: sifat benda langit, fenomena rotasi & revolusi bumi, gerhana bulan/matahari, dan pasang surut air laut.', icon: '🎯' }},
+      // 2 - Definisi & Anggota Tata Surya
+      { type: 'twocol', data: {
+        left: { label: 'Definisi', title: '🌌 Tata Surya', items: ['Susunan Matahari dan semua anggota tata surya yang mengitarinya.', 'Matahari sebagai pusat, semua benda langit mengorbit di sekitarnya.'], type: 'ul' },
+        right: { label: 'Anggota Tata Surya', title: 'Terdiri dari:', items: ['🪐 Planet (8 planet)', '🌑 Asteroid', '🌕 Satelit', '☄️ Komet', '🪨 Meteoroid'], type: 'ul' }
+      }},
+      // 3 - Planet
+      { type: 'twocol', data: {
+        left: { label: 'Pengertian', title: '🪐 Planet', items: ['Benda langit yang tidak dapat memancarkan cahaya sendiri.', 'Mengorbit mengelilingi matahari.'], type: 'ul' },
+        right: { label: '8 Planet (urut dari matahari)', title: 'Daftar Planet', items: ['☿ Merkurius', '♀ Venus', '🌍 Bumi', '♂ Mars', '♃ Jupiter', '♄ Saturnus', '⛢ Uranus', '♆ Neptunus'], type: 'ol' }
+      }},
+      // 4 - Inferior vs Superior
+      { type: 'twocol', data: {
+        left: { label: 'Berdasarkan orbit terhadap Bumi', title: '🔵 Planet Inferior', items: ['Orbitnya berada di dalam orbit Bumi.', 'Contoh: Merkurius dan Venus.'], type: 'ul' },
+        right: { label: 'Berdasarkan orbit terhadap Bumi', title: '🔴 Planet Superior', items: ['Orbitnya berada di luar orbit Bumi.', 'Contoh: Mars, Jupiter, Saturnus, Uranus, Neptunus.'], type: 'ul' }
+      }},
+      // 5 - Planet Dalam vs Luar
+      { type: 'twocol', data: {
+        left: { label: 'Berdasarkan orbit terhadap Asteroid', title: '🟢 Planet Dalam', items: ['Orbitnya di dalam garis edar Asteroid.', 'Contoh: Merkurius, Venus, Bumi, Mars.'], type: 'ul' },
+        right: { label: 'Berdasarkan orbit terhadap Asteroid', title: '🟠 Planet Luar', items: ['Orbitnya di luar garis edar Asteroid.', 'Contoh: Jupiter, Saturnus, Uranus, Neptunus.'], type: 'ul' }
+      }},
+      // 6 - Terestrial vs Jovian
+      { type: 'twocol', data: {
+        left: { label: 'Berdasarkan ukuran & komposisi', title: '🌍 Planet Terestrial', items: ['Ukuran dan komposisi hampir sama dengan Bumi.', 'Contoh: Merkurius, Venus, Bumi, Mars.'], type: 'ul' },
+        right: { label: 'Berdasarkan ukuran & komposisi', title: '🪐 Planet Jovian', items: ['Ukuran sangat besar, komposisi seperti Jupiter.', 'Contoh: Jupiter, Saturnus, Uranus, Neptunus.'], type: 'ul' }
+      }},
+      // 7 - Tabel Data Planet
+      { type: 'content', data: { title: '📊 Tabel Data Planet', html: `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px"><thead><tr style="background:#1a3c2a;color:white"><th style="padding:6px 8px;text-align:left">Planet</th><th style="padding:6px 8px;text-align:center">Jari² (×Bumi)</th><th style="padding:6px 8px;text-align:center">Massa (×Bumi)</th><th style="padding:6px 8px;text-align:center">Rotasi (hr)</th><th style="padding:6px 8px;text-align:center">Revolusi (thn)</th><th style="padding:6px 8px;text-align:center">Jarak ☀ (SA)</th><th style="padding:6px 8px;text-align:center">Satelit</th></tr></thead><tbody><tr style="background:#f8f8f8"><td style="padding:5px 8px;font-weight:600">Merkurius</td><td style="padding:5px 8px;text-align:center">0.38</td><td style="padding:5px 8px;text-align:center">0.055</td><td style="padding:5px 8px;text-align:center">58.6</td><td style="padding:5px 8px;text-align:center">0.24</td><td style="padding:5px 8px;text-align:center">0.39</td><td style="padding:5px 8px;text-align:center">0</td></tr><tr><td style="padding:5px 8px;font-weight:600">Venus</td><td style="padding:5px 8px;text-align:center">0.95</td><td style="padding:5px 8px;text-align:center">0.82</td><td style="padding:5px 8px;text-align:center">−240</td><td style="padding:5px 8px;text-align:center">0.62</td><td style="padding:5px 8px;text-align:center">0.72</td><td style="padding:5px 8px;text-align:center">0</td></tr><tr style="background:#f8f8f8;font-weight:700;color:#1a3c2a"><td style="padding:5px 8px">Bumi</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td></tr><tr><td style="padding:5px 8px;font-weight:600">Mars</td><td style="padding:5px 8px;text-align:center">0.53</td><td style="padding:5px 8px;text-align:center">0.11</td><td style="padding:5px 8px;text-align:center">1.03</td><td style="padding:5px 8px;text-align:center">1.88</td><td style="padding:5px 8px;text-align:center">1.52</td><td style="padding:5px 8px;text-align:center">2</td></tr><tr style="background:#f8f8f8"><td style="padding:5px 8px;font-weight:600">Jupiter</td><td style="padding:5px 8px;text-align:center">11.21</td><td style="padding:5px 8px;text-align:center">317.8</td><td style="padding:5px 8px;text-align:center">0.41</td><td style="padding:5px 8px;text-align:center">11.86</td><td style="padding:5px 8px;text-align:center">5.20</td><td style="padding:5px 8px;text-align:center">63</td></tr><tr><td style="padding:5px 8px;font-weight:600">Saturnus</td><td style="padding:5px 8px;text-align:center">9.45</td><td style="padding:5px 8px;text-align:center">95.16</td><td style="padding:5px 8px;text-align:center">0.44</td><td style="padding:5px 8px;text-align:center">29.46</td><td style="padding:5px 8px;text-align:center">9.59</td><td style="padding:5px 8px;text-align:center">56</td></tr><tr style="background:#f8f8f8"><td style="padding:5px 8px;font-weight:600">Uranus</td><td style="padding:5px 8px;text-align:center">4.01</td><td style="padding:5px 8px;text-align:center">14.54</td><td style="padding:5px 8px;text-align:center">−0.72</td><td style="padding:5px 8px;text-align:center">84.01</td><td style="padding:5px 8px;text-align:center">19.10</td><td style="padding:5px 8px;text-align:center">27</td></tr><tr><td style="padding:5px 8px;font-weight:600">Neptunus</td><td style="padding:5px 8px;text-align:center">3.88</td><td style="padding:5px 8px;text-align:center">17.15</td><td style="padding:5px 8px;text-align:center">0.67</td><td style="padding:5px 8px;text-align:center">164.8</td><td style="padding:5px 8px;text-align:center">30</td><td style="padding:5px 8px;text-align:center">13</td></tr></tbody></table></div><p style="font-size:11px;color:#888;margin-top:8px">Sumber: Microsoft Encarta Encyclopedia 2008 &nbsp;|&nbsp; Rotasi negatif = retrograde (berlawanan arah)</p>` }},
+      // 8 - Rotasi & Revolusi
+      { type: 'section', data: { label: 'Gerak Bumi', title: 'Rotasi & Revolusi Bumi', desc: 'Bumi bergerak dengan dua cara: berputar pada sumbunya (rotasi) dan mengelilingi matahari (revolusi).', icon: '🌍' }},
+      // 9 - Revolusi Bumi
+      { type: 'twocol', data: {
+        left: { label: 'Revolusi Bumi', title: '🔁 Periode Revolusi', items: ['Waktu yang diperlukan planet mengitari matahari satu kali putaran.', 'Bumi: 365,25 hari (1 tahun).'], type: 'ul' },
+        right: { label: 'Akibat Revolusi', title: 'Akibat Revolusi Bumi', items: ['🌸 Pergantian musim di bumi', '⭐ Rasi bintang berbeda tiap bulan', '⏰ Perbedaan lamanya siang dan malam', '☀ Gerak semu tahunan matahari'], type: 'ul' }
+      }},
+      // 10 - Rotasi Bumi
+      { type: 'twocol', data: {
+        left: { label: 'Rotasi Bumi', title: '🔄 Periode Rotasi', items: ['Waktu yang diperlukan planet berputar pada sumbunya satu kali putaran.', 'Bumi: 24 jam (1 hari).'], type: 'ul' },
+        right: { label: 'Akibat Rotasi', title: 'Akibat Rotasi Bumi', items: ['🌅 Pergantian siang dan malam', '🕐 Perbedaan waktu di bumi', '☀ Gerak semu harian matahari', '🌐 Bumi menggelembung di katulistiwa & pepat di kutub', '💨 Perubahan arah angin di katulistiwa'], type: 'ul' }
+      }},
+      // 11 - Asteroid
+      { type: 'cards', data: { title: '🌑 Asteroid', cols: 2, items: [
+        { title: 'Pengertian Asteroid', body: 'Planet-planet kecil yang berada di antara orbit Mars dan orbit Jupiter.' },
+        { title: 'Asteroid Terbesar', body: 'Ceres* (950 km), Pallas (532 km), Vesta (530 km), Hygiea (408 km), Davida (326 km), Interamnia (318 km).' },
+      ]}},
+      // 12 - Bulan section
+      { type: 'section', data: { label: 'Satelit Bumi', title: 'Bulan', desc: 'Bulan melakukan tiga gerakan sekaligus: rotasi pada porosnya, revolusi mengelilingi Bumi, dan bersama Bumi mengitari Matahari.', icon: '🌕' }},
+      // 13 - Gerakan Bulan & Fase
+      { type: 'twocol', data: {
+        left: { label: 'Gerakan Bulan', title: '🌕 Tiga Gerakan Bulan', items: ['🔄 Berputar pada porosnya (Rotasi)', '🌍 Mengitari Bumi (Revolusi)', '☀ Bersama Bumi mengitari Matahari', 'Bidang orbit bulan membentuk sudut 5° terhadap ekliptika → penyebab terjadinya gerhana.'], type: 'ul' },
+        right: { label: 'Fase Bulan', title: '🌙 Fase-Fase Bulan', items: ['🌑 Bulan Baru / Mati (Konjungsi)', '🌒 Bulan Sabit Awal', '🌓 Kuartil Awal', '🌔 Bulan Tiga Perempat', '🌕 Bulan Purnama (Oposisi)', '🌖 Bulan Tiga Perempat', '🌗 Kuartil Akhir', '🌘 Bulan Sabit Akhir'], type: 'ul' }
+      }},
+      // 14 - Gerhana Bulan
+      { type: 'twocol', data: {
+        left: { label: 'Gerhana Bulan', title: '🌑 Gerhana Bulan', items: ['Terjadi saat Bumi berada di antara Matahari dan Bulan.', 'Posisi: Matahari — Bumi — Bulan segaris.', 'Bulan masuk ke bayangan (umbra/penumbra) Bumi.'], type: 'ul' },
+        right: { label: 'Jenis Gerhana Bulan', title: 'Jenis-Jenis', items: ['🔴 Total: Bulan masuk sepenuhnya ke umbra Bumi.', '🌒 Sebagian: Sebagian bulan masuk ke umbra Bumi.', '🌑 Penumbra: Bulan hanya masuk ke penumbra Bumi.'], type: 'ul' }
+      }},
+      // 15 - Gerhana Matahari
+      { type: 'twocol', data: {
+        left: { label: 'Gerhana Matahari', title: '☀ Gerhana Matahari', items: ['Terjadi saat Bulan berada di antara Matahari dan Bumi.', 'Posisi: Matahari — Bulan — Bumi segaris.', 'Bayangan Bulan jatuh ke permukaan Bumi.'], type: 'ul' },
+        right: { label: 'Jenis Gerhana Matahari', title: 'Jenis-Jenis', items: ['☀ Total: Matahari tertutup seluruhnya oleh Bulan.', '🌗 Sebagian: Hanya sebagian matahari yang tertutup.', '💍 Cincin: Bulan lebih jauh, tampak lingkaran cahaya.'], type: 'ul' }
+      }},
+      // 16 - Pasang Surut
+      { type: 'twocol', data: {
+        left: { label: 'Pasang Surut Air Laut', title: '🌊 Pasang Purnama', items: ['Terjadi saat Matahari, Bumi, dan Bulan segaris (bulan baru atau purnama).', 'Pasang naik terbesar karena gaya gravitasi matahari dan bulan searah.'], type: 'ul' },
+        right: { label: 'Pasang Surut Air Laut', title: '🌊 Pasang Perbani (Neap)', items: ['Terjadi saat Matahari, Bumi, dan Bulan membentuk sudut 90°.', 'Pasang naik terkecil karena gaya gravitasi matahari dan bulan berlawanan.'], type: 'ul' }
+      }},
+      // 17 - Komet
+      { type: 'cards', data: { title: '☄ Komet', cols: 2, items: [
+        { title: 'Pengertian Komet', body: 'Benda antar planet berupa bongkah es dan debu dengan orbit sangat lonjong. Nama lain: Bintang Berekor (Kometes = rambut panjang).' },
+        { title: '🔭 Bagian-Bagian Komet', body: 'Inti (padat seperti bintang kecil), Koma (daerah kabut di sekitar inti), Awan Hidrogen, dan Ekor.' },
+        { title: '💨 Ekor Komet', body: 'Selalu menjauh dari matahari akibat angin matahari. Makin dekat matahari, ekor makin panjang.' },
+        { title: '👁 Mengapa Ekor Terlihat?', body: 'Gas & debu memantulkan cahaya matahari, dan menyerap sinar UV lalu memancarkannya sebagai cahaya tampak.' },
+      ]}},
+      // 18 - Meteoroid, Meteor, Meteorit
+      { type: 'cards', data: { title: '🪨 Meteoroid · Meteor · Meteorit', cols: 3, items: [
+        { title: '🪨 Meteoroid', body: 'Batuan di ruang antarplanet, berukuran mulai sebiji jagung hingga sebesar gerbong kereta api.' },
+        { title: '💫 Meteor', body: 'Meteoroid yang memasuki dan bergesekan dengan atmosfer Bumi sehingga terbakar. Nama lain: Bintang Jatuh.' },
+        { title: '🌍 Meteorit', body: 'Sisa meteoroid yang berhasil mencapai permukaan Bumi. ±20 juta meteoroid/tahun masuk atmosfer, ~500 sampai ke Bumi.' },
+      ]}},
+      // 19 - Kesimpulan
+      { type: 'content', data: { title: '📝 Kesimpulan', html: `<p><strong>1. Tata Surya</strong> adalah susunan Matahari dan benda langit yang mengitarinya: 8 planet, asteroid, satelit, komet, dan meteoroid.</p><p><strong>2. Planet</strong> dikelompokkan menjadi inferior/superior, dalam/luar, dan terestrial/jovian.</p><p><strong>3. Rotasi Bumi</strong> → pergantian siang-malam, perbedaan waktu, gerak semu harian matahari.</p><p><strong>4. Revolusi Bumi</strong> → pergantian musim, perbedaan rasi bintang, gerak semu tahunan matahari.</p><p><strong>5. Gerhana Matahari</strong>: Matahari – Bulan – Bumi segaris. <strong>Gerhana Bulan</strong>: Matahari – Bumi – Bulan segaris.</p><p><strong>6. Pasang Purnama</strong>: segaris (pasang terbesar). <strong>Pasang Perbani</strong>: sudut 90° (pasang terkecil).</p>` }},
+      // 20 - Closing
+      { type: 'closing', data: { title: 'Terima Kasih!', sub: 'Selamat Belajar — TP 2025/2026 🪐', icon: '🪐' }},
+    ]
+  },
+
+  6: {
+    title: "Wilayah NKRI — PPKn Kelas 7 Bab 5",
+    slides: [
+      // 0 - Cover
+      { type: 'cover', data: { title: 'Wilayah NKRI', subtitle: 'Bab 5 PPKn', kelas: 'Kelas 7 · PPKn · SMPK PENABUR Jakarta', icon: '🗺️' }},
+      // 1 - Overview Materi
+      { type: 'cards', data: { title: 'Isi Materi Bab 5', cols: 2, items: [
+        { title: 'A. Makna Negara', body: 'Pengertian, sifat, unsur, terjadinya, serta tujuan dan fungsi negara.' },
+        { title: 'B. Wilayah NKRI', body: 'Perkembangan wilayah dan batas-batas wilayah negara Indonesia.' },
+        { title: 'C. Indonesia sebagai Negara Kesatuan', body: 'Latar belakang dan dasar hukum Indonesia memilih bentuk negara kesatuan.' },
+        { title: 'D. Upaya Menjaga Keutuhan NKRI', body: 'Cara-cara menjaga keutuhan wilayah NKRI bagi warga negara dan pelajar.' },
+      ]}},
+      // 2 - Section A
+      { type: 'section', data: { label: 'Bagian A', title: 'Makna Negara', desc: 'Memahami pengertian, sifat, unsur, proses terbentuknya, serta tujuan dan fungsi negara.', icon: '🏛️' }},
+      // 3 - Pengertian Negara (tokoh)
+      { type: 'cards', data: { title: 'Pengertian Negara Menurut Para Ahli', cols: 2, items: [
+        { title: '🏛️ Aristoteles', body: 'Suatu politik yang mengadakan persekutuan dengan tujuan mencapai kehidupan sebaik mungkin.' },
+        { title: '⚖️ Hans Kelsen', body: 'Suatu susunan pergaulan hidup bersama tanpa adanya suatu paksaan.' },
+        { title: '👑 Jean Bodin', body: 'Suatu persekutuan dari keluarga yang dipimpin seorang pemimpin yang memiliki kedaulatan.' },
+        { title: '📖 R. Kranenburg', body: 'Suatu organisasi kekuasaan yang diciptakan oleh sekelompok manusia yang disebut bangsa.' },
+      ]}},
+      // 4 - Kesimpulan & Sifat Negara
+      { type: 'twocol', data: {
+        left: { label: 'Kesimpulan', title: '📌 Negara adalah…', items: [
+          'Suatu organisasi yang di dalamnya ada sekelompok rakyat.',
+          'Tinggal di wilayah yang permanen.',
+          'Ada pemerintahan yang berdaulat ke dalam maupun ke luar.',
+          'Untuk mencapai tujuan bersama.',
+        ], type: 'ul' },
+        right: { label: 'Menurut Miriam Budiardjo', title: '⚡ Sifat-Sifat Negara', items: [
+          '🔒 Memaksa — punya kekuatan fisik secara legal (polisi, tentara, dll).',
+          '🏷️ Monopoli — menetapkan tujuan bersama masyarakat.',
+          '📋 Mencakup Semua — semua peraturan berlaku untuk semua orang; tidak ada yang kebal hukum.',
+        ], type: 'ul' }
+      }},
+      // 5 - Unsur Negara
+      { type: 'cards', data: { title: 'Unsur-Unsur Negara', cols: 3, items: [
+        { title: '📜 Pandangan Tradisional', body: 'Menurut Oppenheimer Lautherpacht: rakyat, daerah, dan pemerintahan yang berdaulat.' },
+        { title: '🌎 Pandangan Konferensi Pan-Amerika', body: '① Penduduk tetap ② Wilayah tertentu ③ Pemerintah ④ Kemampuan mengadakan hubungan dengan negara lain.' },
+        { title: '🔬 Pandangan Modern', body: 'Unsur Konstitutif: rakyat, wilayah, pemerintah berdaulat. Unsur Deklaratif: pengakuan dari negara lain.' },
+      ]}},
+      // 6 - Terjadinya Negara
+      { type: 'twocol', data: {
+        left: { label: 'George Jellinek', title: '🌱 Terjadinya Negara', items: [
+          'Primer: diawali dari keluarga → perkumpulan → negara, secara alamiah.',
+          'Sekunder: suatu kelompok diakui sebagai negara apabila mendapat pengakuan dari negara lain.',
+        ], type: 'ul' },
+        right: { label: 'Teori Terbentuknya Negara', title: '📚 Empat Teori', items: [
+          '🤝 Teori Kontrak Sosial/Perjanjian',
+          '✝️ Teori Ketuhanan',
+          '💪 Teori Kekuatan',
+          '🌿 Teori Organis',
+        ], type: 'ul' }
+      }},
+      // 7 - Tujuan & Fungsi Negara
+      { type: 'twocol', data: {
+        left: { label: 'Pembukaan UUD NRI 1945 Alinea IV', title: '🎯 Tujuan Negara RI', items: [
+          'Melindungi segenap bangsa Indonesia dan seluruh tumpah darah Indonesia.',
+          'Memajukan kesejahteraan umum.',
+          'Mencerdaskan kehidupan bangsa.',
+          'Ikut melaksanakan ketertiban dunia berdasarkan kemerdekaan, perdamaian abadi, dan keadilan sosial.',
+        ], type: 'ol' },
+        right: { label: 'Menurut Miriam Budiardjo', title: '⚙️ Fungsi Negara', items: [
+          'Penertiban (law and order) — sebagai stabilisator.',
+          'Kesejahteraan & kemakmuran rakyat.',
+          'Pertahanan — menjaga dari ancaman luar.',
+          'Menegakkan keadilan melalui badan-badan peradilan.',
+        ], type: 'ol' }
+      }},
+      // 8 - Section B
+      { type: 'section', data: { label: 'Bagian B', title: 'Wilayah NKRI', desc: 'Perkembangan wilayah Negara Kesatuan Republik Indonesia dari awal kemerdekaan hingga sekarang, serta batas-batas wilayah negara.', icon: '🗺️' }},
+      // 9 - Perkembangan Wilayah
+      { type: 'cards', data: { title: 'Perkembangan Wilayah NKRI', cols: 3, items: [
+        { title: '🏴 Orde Lama (1945)', body: 'Indonesia awal kemerdekaan terdiri dari 8 provinsi dengan gubernur pertama masing-masing.' },
+        { title: '🏳️ Orde Baru', body: 'Pemekaran terbatas: Bengkulu (1967), Irian Barat provinsi ke-26 (1969), Timor-Timur provinsi ke-27 (1976) — lepas 1999.' },
+        { title: '🇮🇩 Reformasi–Sekarang', body: 'Pemekaran masif di era reformasi. Total saat ini: 38 daerah provinsi di Indonesia.' },
+      ]}},
+      // 10 - 8 Provinsi Awal
+      { type: 'content', data: { title: '📋 8 Provinsi Pertama NKRI (1945)', html: `
+        <p style="margin-bottom:12px;color:#5c6b5e;font-size:13px">Ditetapkan setelah Proklamasi Kemerdekaan 17 Agustus 1945:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          ${[['Sumatra','Teuku Mohammad Hasan'],['Jawa Barat','Sutardjo Kartohadikusumo'],['Jawa Tengah','R. Panji Suroso'],['Jawa Timur','R.M. Suryo'],['Sunda Kecil (Nusa Tenggara)','Mr. I. Gusti Ketut Puja'],['Maluku','Mr. J. Latuharhary'],['Sulawesi','R. G.S.S.J. Sam Ratulangi'],['Kalimantan','Ir. Pangeran Mohammad Noor']].map(([p,g])=>`
+          <div style="background:#f0f7f2;border-radius:8px;padding:10px 14px;border-left:3px solid #40916c">
+            <div style="font-weight:600;color:#1a3c2a;font-size:13px">${p}</div>
+            <div style="font-size:12px;color:#4a5c4e">${g}</div>
+          </div>`).join('')}
+        </div>
+      ` }},
+      // 11 - Batas Wilayah
+      { type: 'cards', data: { title: '🗺️ Batas Wilayah NKRI', cols: 3, items: [
+        { title: '🌄 Wilayah Darat', body: 'Berbatasan dengan: Malaysia, Papua Nugini, dan Timor Leste.' },
+        { title: '🌊 Wilayah Laut', body: 'Berbatasan dengan: Malaysia, Papua Nugini, Singapura, dan Timor Leste.' },
+        { title: '✈️ Wilayah Udara', body: 'Mengikuti batas kedaulatan darat & laut. Batas dengan angkasa luar ditetapkan berdasarkan hukum internasional.' },
+      ]}},
+      // 12 - Section C
+      { type: 'section', data: { label: 'Bagian C', title: 'Indonesia sebagai Negara Kesatuan', desc: 'Mengapa Indonesia memilih bentuk negara kesatuan dan apa artinya bagi keragaman bangsa.', icon: '🤝' }},
+      // 13 - Negara Kesatuan
+      { type: 'twocol', data: {
+        left: { label: 'UUD NRI 1945 Pasal 1 Ayat (1)', title: '📜 Dasar Hukum', items: [
+          '"Negara Indonesia adalah negara kesatuan yang berbentuk republik."',
+          'Kesatuan = bentuk negaranya.',
+          'Republik = bentuk pemerintahannya.',
+        ], type: 'ul' },
+        right: { label: 'Alasan Memilih Negara Kesatuan', title: '💡 Mengapa Kesatuan?', items: [
+          'Bentuk negara kesatuan tidak menghilangkan keragaman yang ada.',
+          'Menyatukan seluruh wilayah dan suku bangsa yang beragam.',
+          'Menjamin kedaulatan tunggal di seluruh wilayah NKRI.',
+        ], type: 'ul' }
+      }},
+      // 14 - Section D
+      { type: 'section', data: { label: 'Bagian D', title: 'Upaya Menjaga Keutuhan NKRI', desc: 'Berbagai cara yang dapat dilakukan oleh warga negara, pelajar, dan masyarakat untuk menjaga keutuhan wilayah NKRI.', icon: '🛡️' }},
+      // 15 - Cara Menjaga NKRI
+      { type: 'twocol', data: {
+        left: { label: 'Cara Fisik', title: '⚔️ Bela Negara Fisik', items: [
+          'Bergabung dalam TNI (Tentara Nasional Indonesia).',
+          'Bergabung menjadi aparat keamanan — Polri.',
+        ], type: 'ul' },
+        right: { label: 'Cara Nonfisik', title: '🕊️ Bela Negara Nonfisik', items: [
+          'Mematuhi peraturan yang berlaku.',
+          'Menyaring kebudayaan asing yang masuk.',
+          'Menjunjung tinggi hak asasi manusia.',
+          'Berperan nyata dalam memajukan bangsa.',
+          'Ikut membangun masyarakat ke arah yang lebih baik.',
+        ], type: 'ul' }
+      }},
+      // 16 - Peran Pelajar & Masyarakat
+      { type: 'twocol', data: {
+        left: { label: 'Sebagai Pelajar', title: '📚 Di Lingkungan Sekolah', items: [
+          'Menjaga kerukunan dalam berteman.',
+          'Mengutamakan kepentingan bersama.',
+          'Belajar dengan tekun.',
+          'Menghargai sesama teman.',
+          'Menaati tata tertib sekolah.',
+          'Menghormati guru.',
+        ], type: 'ul' },
+        right: { label: 'Sebagai Anggota Masyarakat', title: '🏘️ Di Lingkungan Masyarakat', items: [
+          'Bergotong royong membersihkan lingkungan sekitar.',
+          'Kerja bakti membangun tempat ibadah.',
+          'Membantu tetangga yang sedang hajatan.',
+        ], type: 'ul' }
+      }},
+      // 17 - Closing
+      { type: 'closing', data: { title: 'Terima Kasih!', sub: 'NKRI Harga Mati 🇮🇩', icon: '🇮🇩' }},
+    ]
+  }
+  }
+
+
+// ============================================================
+// FOLDERS
+// ============================================================
+const folders = {
+  biologi: {
+    label: 'IPA · BIOLOGI',
+    title: 'Biologi',
+    subtitle: 'Materi tentang ekosistem dan kehidupan makhluk hidup.',
+    materials: [
+      { presId: 1, num: '01', title: 'Pengantar Ekosistem',
+        desc: 'Komponen, tingkatan ekologi, dan interaksi makhluk hidup',
+        tags: ['Biotik & Abiotik','Simbiosis','Rantai Makanan'] },
+      { presId: 2, num: '02', title: 'Klasifikasi & Kelestarian',
+        desc: 'Jenis-jenis ekosistem, suksesi, dan keanekaragaman hayati',
+        tags: ['Bioma Darat','Ekosistem Air','Konservasi'] },
+    ]
+  },
+  ips: {
+    label: 'ILMU PENGETAHUAN SOSIAL',
+    title: 'IPS',
+    subtitle: 'Materi sosial, ekonomi, dan pemberdayaan masyarakat.',
+    materials: [
+      { presId: 3, num: '01', title: 'Pemberdayaan Masyarakat',
+        desc: 'Uang, pendapatan, tabungan, investasi, dan literasi keuangan',
+        tags: ['Uang','Investasi','Literasi Keuangan'] },
+      { presId: 4, num: '02', title: 'Peranan Komunitas dalam Kehidupan Masyarakat',
+        desc: 'Konsep komunitas, peran sosial, pemberdayaan, tantangan, dan solusi',
+        tags: ['Komunitas','Solidaritas','Pemberdayaan'] },
+    ]
+  },
+  fisika: {
+    label: 'IPA · FISIKA',
+    title: 'Fisika',
+    subtitle: 'Materi tentang tata surya dan fenomena alam semesta.',
+    materials: [
+      { presId: 5, num: '01', title: 'Tata Surya',
+        desc: 'Planet, rotasi & revolusi, gerhana, pasang surut, komet, dan meteoroid',
+        tags: ['Planet','Gerhana','Pasang Surut','Komet'] },
+    ]
+  },
+  ppkn: {
+    label: 'PENDIDIKAN PANCASILA & KEWARGANEGARAAN',
+    title: 'PPKn',
+    subtitle: 'Materi wilayah NKRI, makna negara, dan upaya menjaga keutuhan bangsa.',
+    materials: [
+      { presId: 6, num: '01', title: 'Wilayah Negara Kesatuan RI — Bab 5',
+        desc: 'Makna negara, wilayah NKRI, Indonesia sebagai negara kesatuan, dan upaya menjaga keutuhan NKRI',
+        tags: ['Makna Negara','Wilayah NKRI','Negara Kesatuan','Bela Negara'] },
+    ]
+  }
+};
+
+function openFolder(key) {
+  const f = folders[key];
+  if (!f) return;
+  document.getElementById('folder-label').textContent = f.label;
+  document.getElementById('folder-title').textContent = f.title;
+  document.getElementById('folder-subtitle').textContent = f.subtitle;
+  document.getElementById('folder-count-top').textContent = `📂 ${f.materials.length} materi`;
+
+  const grid = document.getElementById('folder-materials');
+  grid.innerHTML = f.materials.map(m => `
+    <div class="ppt-card" onclick="openPresentation(${m.presId})">
+      <div class="card-num">${m.num}</div>
+      <div>
+        <div class="card-title">${m.title}</div>
+        <div class="card-desc">${m.desc}</div>
+      </div>
+      <div class="card-topics">
+        ${m.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+  `).join('');
+
+  document.getElementById('screen-home').classList.remove('active');
+  document.getElementById('screen-folder').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeFolder() {
+  document.getElementById('screen-folder').classList.remove('active');
+  document.getElementById('screen-home').classList.add('active');
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let currentPres = 1;
+let currentSlide = 0;
+let isFocusMode = false;
+
+function enterFocusMode(event) {
+  if (event) event.stopPropagation();
+  const slidesScreen = document.getElementById('screen-slides');
+  isFocusMode = true;
+  document.body.classList.add('focus-mode');
+
+  // Browser Fullscreen API harus dipicu oleh klik user. Jika browser menolak,
+  // tampilan tetap masuk mode fokus dengan header/sidebar/nav disembunyikan.
+  const requestFullscreen = slidesScreen.requestFullscreen || slidesScreen.webkitRequestFullscreen || slidesScreen.msRequestFullscreen;
+  if (requestFullscreen) {
+    try {
+      const result = requestFullscreen.call(slidesScreen);
+      if (result && typeof result.catch === 'function') result.catch(() => {});
+    } catch (err) {}
+  }
+}
+
+function exitFocusMode() {
+  isFocusMode = false;
+  document.body.classList.remove('focus-mode');
+  if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+    const exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (exitFullscreen) {
+      try {
+        const result = exitFullscreen.call(document);
+        if (result && typeof result.catch === 'function') result.catch(() => {});
+      } catch (err) {}
+    }
+  }
+}
+
+function syncFocusModeWithFullscreen() {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement && isFocusMode) {
+    isFocusMode = false;
+    document.body.classList.remove('focus-mode');
+  }
+}
+document.addEventListener('fullscreenchange', syncFocusModeWithFullscreen);
+document.addEventListener('webkitfullscreenchange', syncFocusModeWithFullscreen);
+document.addEventListener('msfullscreenchange', syncFocusModeWithFullscreen);
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function goHome() {
+  if (isFocusMode) exitFocusMode();
+  document.getElementById('screen-home').classList.add('active');
+  document.getElementById('screen-slides').classList.remove('active');
+  document.getElementById('screen-folder').classList.remove('active');
+}
+
+function openPresentation(id) {
+  currentPres = id;
+  currentSlide = 0;
+  document.getElementById('pres-title').textContent = presentations[id].title;
+  document.getElementById('screen-home').classList.remove('active');
+  document.getElementById('screen-folder').classList.remove('active');
+  document.getElementById('screen-slides').classList.add('active');
+  renderAll();
+}
+
+function prevSlide() {
+  if (currentSlide > 0) { currentSlide--; renderSlide(); }
+}
+function nextSlide() {
+  const slides = presentations[currentPres].slides;
+  if (currentSlide < slides.length - 1) { currentSlide++; renderSlide(); }
+}
+
+function goToSlide(idx) {
+  currentSlide = idx; renderSlide();
+}
+
+function renderAll() {
+  buildSidebar();
+  renderSlide();
+}
+
+function renderSlide() {
+  const slides = presentations[currentPres].slides;
+  const total = slides.length;
+  const frame = document.getElementById('slide-frame');
+
+  // transition
+  frame.classList.add('transitioning');
+  setTimeout(() => {
+    frame.innerHTML = buildSlideHTML(slides[currentSlide]);
+    frame.classList.remove('transitioning');
+  }, 200);
+
+  // counter
+  document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${total}`;
+  // progress
+  document.getElementById('progress-bar').style.width = `${((currentSlide + 1) / total) * 100}%`;
+  // buttons
+  document.getElementById('btn-prev').disabled = currentSlide === 0;
+  document.getElementById('btn-next').disabled = currentSlide === total - 1;
+  document.getElementById('btn-next').textContent = currentSlide === total - 1 ? 'Selesai ✓' : 'Selanjutnya →';
+
+  // sidebar active
+  document.querySelectorAll('.thumb-item').forEach((el, i) => {
+    el.classList.toggle('active', i === currentSlide);
+    if (i === currentSlide) el.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+// ============================================================
+// BUILD SLIDE HTML
+// ============================================================
+function buildSlideHTML(slide) {
+  const { type, data } = slide;
+
+  if (type === 'cover') {
+    return `<div class="slide s-cover visible">
+      <div class="cover-eyebrow">${data.kelas}</div>
+      <h1>${data.title} <span>${data.subtitle}</span></h1>
+      <button class="focus-mode-btn" onclick="enterFocusMode(event)">⛶ Mode Fokus</button>
+      <div class="cover-sub">Materi IPA · Kelas 7</div>
+      <div class="cover-leaf">${data.icon}</div>
+    </div>`;
+  }
+
+  if (type === 'closing') {
+    return `<div class="slide s-closing visible">
+      <h2>${data.title}</h2>
+      <p>${data.sub}</p>
+      <div class="closing-deco" style="top:-20px;left:-40px">${data.icon}</div>
+      <div class="closing-deco" style="bottom:-30px;right:-20px;font-size:240px">${data.icon}</div>
+    </div>`;
+  }
+
+  if (type === 'section') {
+    return `<div class="slide s-section visible">
+      <div class="sec-label">${data.label}</div>
+      <h2>${data.title}</h2>
+      <p>${data.desc}</p>
+      <div class="sec-deco">${data.icon}</div>
+    </div>`;
+  }
+
+  if (type === 'content') {
+    return `<div class="slide s-content visible">
+      <h3>${data.title}</h3>
+      <div class="content-body">${data.html}</div>
+    </div>`;
+  }
+
+  if (type === 'twocol') {
+    const listL = buildList(data.left.items, data.left.type);
+    const listR = buildList(data.right.items, data.right.type);
+    return `<div class="slide s-two-col visible">
+      <div class="col-left">
+        <div class="col-label">${data.left.label}</div>
+        <h3>${data.left.title}</h3>
+        ${listL}
+      </div>
+      <div class="col-right">
+        <div class="col-label">${data.right.label}</div>
+        <h3>${data.right.title}</h3>
+        ${listR}
+      </div>
+    </div>`;
+  }
+
+  if (type === 'cards') {
+    const colClass = data.cols === 3 ? 'cols-3' : 'cols-2';
+    const cards = data.items.map(item =>
+      `<div class="card-item ${item.cls || ''}"><h4>${item.title}</h4><p>${item.body}</p></div>`
+    ).join('');
+    return `<div class="slide s-cards visible">
+      <h3>${data.title}</h3>
+      <div class="cards-grid ${colClass}">${cards}</div>
+    </div>`;
+  }
+
+  if (type === 'defs') {
+    const defs = data.items.map(d =>
+      `<div class="def-item"><div class="def-term">${d.term}</div><div class="def-meaning">${d.meaning}</div></div>`
+    ).join('');
+    return `<div class="slide s-defs visible">
+      <h3>${data.title}</h3>
+      <div class="defs-grid">${defs}</div>
+    </div>`;
+  }
+
+  if (type === 'levels') {
+    const items = data.items.map((lv, i) => {
+      const arrow = i < data.items.length - 1 ? `<div class="level-arrow">→</div>` : '';
+      return `<div class="level-item">
+        <div class="lv-icon">${lv.icon}</div>
+        <div class="lv-name">${lv.name}</div>
+        <div class="lv-desc">${lv.desc}</div>
+      </div>${arrow}`;
+    }).join('');
+    return `<div class="slide s-levels visible">
+      <h3>${data.title}</h3>
+      <div class="levels-row">${items}</div>
+    </div>`;
+  }
+
+  if (type === 'biome') {
+    const biomes = data.items.map(b =>
+      `<div class="biome-item" style="background:${b.color}">
+        <div class="bi-icon">${b.icon}</div>
+        <div class="bi-name">${b.name}</div>
+        <div class="bi-fact">${b.fact}</div>
+      </div>`
+    ).join('');
+    return `<div class="slide s-biome visible">
+      <h3>${data.title}</h3>
+      <div class="biome-grid">${biomes}</div>
+    </div>`;
+  }
+
+  if (type === 'pyramid') {
+    const levels = data.levels.map(lv =>
+      `<div class="pyramid-level" style="width:${lv.width};background:${lv.color};color:${lv.textColor||'white'}">${lv.label}</div>`
+    ).join('');
+    return `<div class="slide s-pyramid visible">
+      <h3>${data.title}</h3>
+      <div class="pyramid">${levels}</div>
+      <p style="font-size:12.5px;color:#5c6b5e;text-align:center;margin-top:16px;max-width:480px">${data.note}</p>
+    </div>`;
+  }
+
+  return `<div class="slide s-content visible"><p>Slide</p></div>`;
+}
+
+function buildList(items, type) {
+  const tag = type === 'ol' ? 'ol' : 'ul';
+  return `<${tag}>${items.map(i => `<li>${i}</li>`).join('')}</${tag}>`;
+}
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function buildSidebar() {
+  const slides = presentations[currentPres].slides;
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = slides.map((slide, i) => {
+    const label = getSlideLabel(slide, i);
+    const bgColor = getSlideColor(slide);
+    return `<div class="thumb-item" onclick="goToSlide(${i})">
+      <div class="thumb-preview" style="background:${bgColor}">
+        <span>${label}</span>
+      </div>
+      <div class="thumb-label">${i + 1}. ${slide.data.title || slide.data.label || ''}</div>
+    </div>`;
+  }).join('');
+}
+
+function getSlideLabel(slide, i) {
+  const typeLabel = { cover: '', closing: '', section: '', cards: '', twocol: '', defs: '', levels: '', biome: '', pyramid: '' };
+  return typeLabel[slide.type] || `${i + 1}`;
+}
+
+function getSlideColor(slide) {
+  const colors = { cover: '#1a3c2a', closing: '#023e8a', section: '#1a3c2a', cards: '#2d3a2e', twocol: '#1f3024', defs: '#3a2e1f', levels: '#2a3a20', biome: '#1a2f3a', pyramid: '#2a2a1a' };
+  return colors[slide.type] || '#1e2a20';
+}
+
+// keyboard
+document.addEventListener('keydown', e => {
+  if (document.getElementById('screen-slides').classList.contains('active')) {
+    if (e.key === 'Escape' && isFocusMode) exitFocusMode();
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  }
+});
+
+// ============================================================
+// LOADING SCREEN
+// ============================================================
+window.addEventListener('load', function () {
+  const loader = document.getElementById('loading-screen');
+  setTimeout(() => {
+    loader.classList.add('fade-out');
+    setTimeout(() => { loader.style.display = 'none'; }, 500);
+  }, 3000);
+});
+
+</script>
+
+</body></html>
